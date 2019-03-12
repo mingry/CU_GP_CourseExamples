@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF686301-D44E-46A6-84A3-1DFA5C1FA866}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstGame", "FirstGame\FirstGame.vcxproj", "{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Debug|Win32.Build.0 = Debug|Win32
+		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Release|Win32.ActiveCfg = Release|Win32
+		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5736EDE5-CBFA-49E0-9CBB-C0FE48C543AC}
+	EndGlobalSection
+EndGlobal
