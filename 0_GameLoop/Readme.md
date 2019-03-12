@@ -19,11 +19,11 @@ SDL2의 *.h, *.lib, *.dll 확인.
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/sdk_version.png"></img></br>
 설치된 것 중 가장 높은 것을 고를 것.
 
-### 4. 추가 include directory 설정 확인
+### 4. 추가 include directories 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/add_dir.png"></img>
 
 
-### 5. 추가 lib directory 설정 확인
+### 5. 추가 lib files 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/add_lib.png"></img>
 
 
