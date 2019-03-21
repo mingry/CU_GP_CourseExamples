@@ -1,6 +1,10 @@
-## 빌드 오류시 확인사항
+## 빌드 오류시 확인 사항
 
-### 1. 라이브러리 파일 다운 받아 적절한 곳에 복사
+### 1. Configuration 설정 확인
+<img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/configuration.png"></img></br>
+
+
+### 2. 라이브러리 파일 다운 및 설치 위치 확인
 
 SDL2의 *.h, *.lib, *.dll 확인.
 <ul>
@@ -10,20 +14,20 @@ SDL2의 *.h, *.lib, *.dll 확인.
 <li>https://www.libsdl.org/projects/SDL_ttf/</li>
 </ul>
 
-### 2. Platform toolkit 버젼 확인
+### 3. Platform toolkit 버젼 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/platform.png"></img></br>
 설치된 것 중 가장 높은 것을 고를 것.
 
 
-### 3. Windows SDK Version 설정 확인
+### 4. Windows SDK Version 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/sdk_version.png"></img></br>
 설치된 것 중 가장 높은 것을 고를 것.
 
-### 4. 추가 include directories 설정 확인
+### 5. 추가 include directories 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/add_dir.png"></img>
 
 
-### 5. 추가 lib files 설정 확인
+### 6. 추가 lib files 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/add_lib.png"></img>
 
 
