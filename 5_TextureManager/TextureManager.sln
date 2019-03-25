@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF686301-D44E-46A6-84A3-1DFA5C1FA866}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextureManagerTest", "TextureManager\TextureManagerTest.vcxproj", "{6293743D-CD44-4AB1-B675-32EBD10DADF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6293743D-CD44-4AB1-B675-32EBD10DADF1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6293743D-CD44-4AB1-B675-32EBD10DADF1}.Debug|Win32.Build.0 = Debug|Win32
+		{6293743D-CD44-4AB1-B675-32EBD10DADF1}.Release|Win32.ActiveCfg = Release|Win32
+		{6293743D-CD44-4AB1-B675-32EBD10DADF1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A30E712B-0AEB-4849-BAD4-3CF352D44736}
+	EndGlobalSection
+EndGlobal
