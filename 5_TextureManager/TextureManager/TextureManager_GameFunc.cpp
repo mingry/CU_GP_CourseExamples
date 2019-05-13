@@ -14,8 +14,6 @@ int oryugen_sprite_num_;
 int cur_sprite_index_;
 std::string cur_sprite_id_;
 
-std::vector<SDL_Rect> orygen_source_rectangle_; // first rectangle
-SDL_Rect orygen_destiniation_rectangles_[2]; // first rectangle
 
 int image_mode_;
 int time_mode_;
