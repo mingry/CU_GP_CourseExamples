@@ -25,7 +25,7 @@
 ### 1. Configuration 설정 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/configuration.png"></img></br>
 
-### 2. Platform toolkit 버젼 확인
+### 2. Platform toolset 버젼 확인
 <img src="https://github.com/mingry/CU_GP_CourseExamples/blob/master/docs/platform.png"></img></br>
 설치된 것 중 가장 높은 것을 고를 것.
 
