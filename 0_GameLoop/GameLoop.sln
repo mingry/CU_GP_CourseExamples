@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstGame", "FirstGame\FirstGame.vcxproj", "{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLoop", "GameLoop\GameLoop.vcxproj", "{9348C2CC-C7CA-456A-8687-D9965140C398}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -23,6 +25,14 @@ Global
 		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Release|Win32.Build.0 = Release|Win32
 		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Release|x64.ActiveCfg = Release|x64
 		{963088DE-1FAF-4EAD-9AEE-E7D0C129719B}.Release|x64.Build.0 = Release|x64
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Debug|Win32.Build.0 = Debug|Win32
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Debug|x64.ActiveCfg = Debug|x64
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Debug|x64.Build.0 = Debug|x64
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Release|Win32.ActiveCfg = Release|Win32
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Release|Win32.Build.0 = Release|Win32
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Release|x64.ActiveCfg = Release|x64
+		{9348C2CC-C7CA-456A-8687-D9965140C398}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
