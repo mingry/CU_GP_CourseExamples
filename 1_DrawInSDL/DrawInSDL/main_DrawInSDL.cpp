@@ -1,6 +1,4 @@
 
-#include "SDL.h"
-#include <iostream>
 #include "Drawing_GameFunc.h"
 
 

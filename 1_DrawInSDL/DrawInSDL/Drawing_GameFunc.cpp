@@ -1,7 +1,5 @@
 #include "Drawing_GameFunc.h"
 #include "SDL_image.h"
-#include <iostream>
-#include <windows.h>
 
 extern SDL_Renderer* g_renderer;
 extern bool g_flag_running;
