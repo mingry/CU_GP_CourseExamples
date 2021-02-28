@@ -4,32 +4,33 @@
 
 extern bool g_flag_running;
 
-// Ä³¸¯ÅÍÀÇ °¨Á¤ »óÅÂ
-int g_state; // ¹«Ç¥Á¤: 0, Çàº¹: 1, ½½ÇÄ: 2
+int g_input;
+std::string g_output; // ìºë¦­í„°
 
-// Ä³¸¯ÅÍÀÇ À§Ä¡
+// ìºë¦­í„°ì˜ ìœ„ì¹˜
 int g_pos_x;
 int g_pos_y;
 
-// Èê·¯°£ ½Ã°£ °è»ê
-double g_time;
+// í˜ëŸ¬ê°„ ì‹œê°„ ê³„ì‚°
+double g_elapsed_time_ms;
 
 
 /////////////////////////////////////////////////////////////
 // InitGame() 
-// ÇÁ·Î±×·¥ÀÌ ½ÃÀÛµÉ ¶§ ÃÖÃÊ¿¡ ÇÑ ¹ø È£ÃâµÇ´Â ÇÔ¼ö.
-// ÀÌ ÇÔ¼ö¿¡¼­ °ÔÀÓ¿¡ ÇÊ¿äÇÑ ÀÚ¿ø(ÀÌ¹ÌÁö, »ç¿îµå µî)À» ·ÎµùÇÏ°í, »óÅÂ º¯¼öµéÀ» ÃÊ±âÈ­ ÇØ¾ßÇÑ´Ù.
+// í”„ë¡œê·¸ëž¨ì´ ì‹œìž‘ë  ë•Œ ìµœì´ˆì— í•œ ë²ˆ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜.
+// ì´ í•¨ìˆ˜ì—ì„œ ê²Œìž„ì— í•„ìš”í•œ ìžì›(ì´ë¯¸ì§€, ì‚¬ìš´ë“œ ë“±)ì„ ë¡œë”©í•˜ê³ , ìƒíƒœ ë³€ìˆ˜ë“¤ì„ ì´ˆê¸°í™” í•´ì•¼í•œë‹¤.
 void InitGame()
 {
 	g_flag_running = true;
- 
-	g_state = 0;		// ¹«Ç¥Á¤
-	g_pos_x = 15;
+	g_input = 0;
+	g_output = "-__-";
+
+	g_pos_x = 0;
 	g_pos_y = 10;
-	g_time = 0.0;
+	g_elapsed_time_ms = 0;
 
 	// Clear the console screen.
-	// Ç¥ÁØÃâ·Â È­¸éÀ» ±ú²ýÈ÷ Áö¿î´Ù.
+	// í‘œì¤€ì¶œë ¥ í™”ë©´ì„ ê¹¨ë—ížˆ ì§€ìš´ë‹¤.
 	system("cls");
 }
 
@@ -40,22 +41,35 @@ void InitGame()
 
 /////////////////////////////////////////////////////////////
 // Update() 
-// °ÔÀÓÀÇ ³»¿ëÀ» °»½ÅÇÏ´Â ÇÔ¼ö.
-// °ÔÀÓ¿¡ ÀÏ¾î³ª´Â º¯È­µéÀº ¸ðµÎ ÀÌ °÷¿¡¼­ ±¸ÇöÇÑ´Ù.
-// ½ÇÁ¦ °ÔÀÓÀÇ ·êÀ» ±¸ÇöÇØ¾ßÇÏ´Â °÷.
-// main ÇÔ¼öÀÇ while loop¿¡ ÀÇÇØ¼­ ¹«ÇÑÈ÷ ¹Ýº¹ È£ÃâµÈ´Ù.
+// ê²Œìž„ì˜ ë‚´ìš©ì„ ê°±ì‹ í•˜ëŠ” í•¨ìˆ˜.
+// ê²Œìž„ì— ì¼ì–´ë‚˜ëŠ” ë³€í™”ë“¤ì€ ëª¨ë‘ ì´ ê³³ì—ì„œ êµ¬í˜„í•œë‹¤.
+// ì‹¤ì œ ê²Œìž„ì˜ ë£°ì„ êµ¬í˜„í•´ì•¼í•˜ëŠ” ê³³.
+// main í•¨ìˆ˜ì˜ while loopì— ì˜í•´ì„œ ë¬´í•œížˆ ë°˜ë³µ í˜¸ì¶œëœë‹¤.
 void Update()
 {
-	// Elapsed Time
-	// °ÔÀÓ ½ÃÀÛºÎÅÍ ÇöÀç±îÁö Èê·¯°£ ½Ã°£À» °è»ê.
-	// 0.03ÃÊ¸¦ ´õÇÑ´Ù. main ÇÔ¼ö¿¡ SDL_Delay(30) ºÎºÐÀ» ÁÖ¸ñÇÏÀÚ.
-	g_time += 0.03;
-
-	// Ä³¸¯ÅÍÀÇ À§Ä¡°¡ ÀÚµ¿À¸·Î 1Ä­¾¿ ÀÌµ¿ÇÏ°Ô ÇÑ´Ù.
+	if (g_input == 1) {
+		g_output = "^__^\n";
+	}
+	else if (g_input == 2) {
+		g_output = "0__0\n";
+	}
+	else if (g_input == 3) {
+		g_output = "T__T\n";
+	}
+	else {
+		g_output = "-__-\n";
+	}
+	
+	// ìºë¦­í„°ì˜ ìœ„ì¹˜ê°€ ìžë™ìœ¼ë¡œ 1ì¹¸ì”© ì´ë™í•˜ê²Œ í•œë‹¤.
 	g_pos_x++;
 
-	// Ä³¸¯ÅÍÀÇ À§Ä¡°¡ ¿À¸¥ÂÊ °æ°è¿¡ ´êÀ¸¸é ´Ù½Ã ¿ÞÂÊ ½ÃÀÛ ºÎºÐÀ¸·Î º¸³½´Ù.  
-	if ( g_pos_x >= 29 ) g_pos_x=0;
+	// ìºë¦­í„°ì˜ ìœ„ì¹˜ê°€ ì˜¤ë¥¸ìª½ ê²½ê³„ì— ë‹¿ìœ¼ë©´ ë‹¤ì‹œ ì™¼ìª½ ì‹œìž‘ ë¶€ë¶„ìœ¼ë¡œ ë³´ë‚¸ë‹¤.  
+	if ( g_pos_x >= 27 ) g_pos_x=0;
+
+	// Elapsed Time
+	// ê²Œìž„ ì‹œìž‘ë¶€í„° í˜„ìž¬ê¹Œì§€ í˜ëŸ¬ê°„ ì‹œê°„ì„ ê³„ì‚°.
+	// 0.03ì´ˆë¥¼ ë”í•œë‹¤. main í•¨ìˆ˜ì— SDL_Delay(30) ë¶€ë¶„ì„ ì£¼ëª©í•˜ìž.
+	g_elapsed_time_ms += 30;
 }
 
 
@@ -63,19 +77,19 @@ void Update()
 
 /////////////////////////////////////////////////////////////
 // Render() 
-// ±×¸²À» ±×¸®´Â ÇÔ¼ö.
-// main ÇÔ¼öÀÇ while loop¿¡ ÀÇÇØ¼­ ¹«ÇÑÈ÷ ¹Ýº¹ È£ÃâµÈ´Ù.
+// ê·¸ë¦¼ì„ ê·¸ë¦¬ëŠ” í•¨ìˆ˜.
+// main í•¨ìˆ˜ì˜ while loopì— ì˜í•´ì„œ ë¬´í•œížˆ ë°˜ë³µ í˜¸ì¶œëœë‹¤.
 void Render()
 {
-	//// 1. ¹è°æ ±×¸®±â.
-	// 1.1. Ä¿¼­¸¦ ÄÜ¼Ö È­¸éÀÇ ¿ÞÂÊ À§ ¸ð¼­¸® ºÎºÐÀ¸·Î ¿Å±ä´Ù. ÁÂÇ¥(0, 0)
-	// <windows.h>¿¡¼­ Á¦°øÇÏ´Â ÇÔ¼ö¸¦ »ç¿ëÇÑ´Ù.
+	//// 1. ë°°ê²½ ê·¸ë¦¬ê¸°.
+	// 1.1. ì»¤ì„œë¥¼ ì½˜ì†” í™”ë©´ì˜ ì™¼ìª½ ìœ„ ëª¨ì„œë¦¬ ë¶€ë¶„ìœ¼ë¡œ ì˜®ê¸´ë‹¤. ì¢Œí‘œ(0, 0)
+	// <windows.h>ì—ì„œ ì œê³µí•˜ëŠ” í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	COORD cur;
 	cur.X = 0;
 	cur.Y = 0;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
 
-	// 1.2. ¹è°æ ºÎºÐÀ» '.'À¸·Î Ã¤¿î´Ù.
+	// 1.2. ë°°ê²½ ë¶€ë¶„ì„ '.'ìœ¼ë¡œ ì±„ìš´ë‹¤.
 	for ( int i=0; i<20; i++ )
 	{
 		for ( int j=0; j<30; j++ )
@@ -85,38 +99,26 @@ void Render()
 		std::cout << std::endl;
 	}
 
-	// 1.3. ¹è°æ ¾Æ·¡¿¡ ½Ã°£À» Ç¥½ÃÇÑ´Ù,
-	std::cout << "Elapsed Time: " << g_time << std::endl;
+	// 1.3. ë°°ê²½ ì•„ëž˜ì— ì‹œê°„ì„ í‘œì‹œí•œë‹¤,
+	std::cout << "Elapsed Time: " << g_elapsed_time_ms / 1000.0f << std::endl;
 
 
-	//// 2. Ä³¸¯ÅÍ ±×¸®±â.
-	// 2.1. Ä¿¼­¸¦ Ä³¸¯ÅÍ°¡ ±×·ÁÁú À§Ä¡·Î ¿Å±ä´Ù. 
+	//// 2. ìºë¦­í„° ê·¸ë¦¬ê¸°.
+	// 2.1. ì»¤ì„œë¥¼ ìºë¦­í„°ê°€ ê·¸ë ¤ì§ˆ ìœ„ì¹˜ë¡œ ì˜®ê¸´ë‹¤. 
 	cur.X = g_pos_x;
 	cur.Y = g_pos_y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
 
-	// 2.2. ÇöÀç »óÅÂ¿¡ ¸Â´Â Ä³¸¯ÅÍ Ç¥Á¤À» ±×¸°´Ù.
-	if ( g_state == 1 )
-	{
-		std::cout << "(:";
-	}
-	else if ( g_state == 2 )
-	{
-		std::cout << "o;";
-	}
-	else 
-	{
-		std::cout << "|:";
-	}
-
+	// 2.2. ìºë¦­í„° í‘œì •ì„ ê·¸ë¦°ë‹¤.
+	std::cout << g_output;
 }
 
 
 
 /////////////////////////////////////////////////////////////
 // HandleEvents() 
-// ÀÌº¥Æ®¸¦ Ã³¸®ÇÏ´Â ÇÔ¼ö.
-// main ÇÔ¼öÀÇ while loop¿¡ ÀÇÇØ¼­ ¹«ÇÑÈ÷ ¹Ýº¹ È£ÃâµÈ´Ù.
+// ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜.
+// main í•¨ìˆ˜ì˜ while loopì— ì˜í•´ì„œ ë¬´í•œížˆ ë°˜ë³µ í˜¸ì¶œëœë‹¤.
 void HandleEvents()
 {
 	SDL_Event event;
@@ -131,27 +133,26 @@ void HandleEvents()
 		case SDL_KEYDOWN:
 			if ( event.key.keysym.sym == SDLK_LEFT )
 			{
-				g_state = 1;
+				g_input = 1;
 			}
 			else if ( event.key.keysym.sym == SDLK_RIGHT )
 			{
-				g_state = 2;
+				g_input = 2;
+			}
+			else if (event.key.keysym.sym == SDLK_SPACE) {
+				g_input = 3;
 			}
 			break;
 
 		case SDL_KEYUP:
-			if ( event.key.keysym.sym == SDLK_LEFT 
-				|| event.key.keysym.sym == SDLK_RIGHT )
-			{
-				g_state = 0;
-			}
+			g_input = 0;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
 		
 			// If the mouse left button is pressed. 
-			if ( event.button.button == SDL_BUTTON_LEFT )
-			{
+			if ( event.button.button == SDL_BUTTON_LEFT ) {
+				g_input = 1;
 			}
 			break;
 
@@ -166,8 +167,8 @@ void HandleEvents()
 
 /////////////////////////////////////////////////////////////
 // ClearGame() 
-// ÇÁ·Î±×·¥ÀÌ ³¡³¯ ¶§ ÇÑ ¹ø È£ÃâµÇ´Â ÇÔ¼ö.
-// ÀÌ ÇÔ¼ö¿¡¼­ »ç¿ëµÈ ÀÚ¿ø(ÀÌ¹ÌÁö, »ç¿îµå µî)°ú ¸Þ¸ð¸® µîÀ» ÇØÁ¦ÇØ¾ßÇÑ´Ù.
+// í”„ë¡œê·¸ëž¨ì´ ëë‚  ë•Œ í•œ ë²ˆ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜.
+// ì´ í•¨ìˆ˜ì—ì„œ ì‚¬ìš©ëœ ìžì›(ì´ë¯¸ì§€, ì‚¬ìš´ë“œ ë“±)ê³¼ ë©”ëª¨ë¦¬ ë“±ì„ í•´ì œí•´ì•¼í•œë‹¤.
 void ClearGame()
 {
 }

@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 		Update();
 		Render();
 
-		SDL_Delay(30);	// 30 ¹Ð¸®¼¼ÄÁµå ±â´Ù¸°´Ù.
+		SDL_Delay(30);	// 30 ë°€ë¦¬ì„¸ì»¨ë“œ ê¸°ë‹¤ë¦°ë‹¤.
 	}
 
 	ClearGame();
