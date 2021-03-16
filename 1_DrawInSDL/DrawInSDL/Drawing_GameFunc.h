@@ -10,6 +10,8 @@ void Update();
 void Render();
 void ClearGame();
 
+extern bool g_flag_running;
+extern SDL_Renderer* g_renderer;
 
 
 
