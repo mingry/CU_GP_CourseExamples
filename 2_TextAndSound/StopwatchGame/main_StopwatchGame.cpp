@@ -1,64 +1,37 @@
 
-#include "SDL.h"
-#include <iostream>
 #include "StopwatchGame_GameFunc.h"
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
 
 
-
-
-/////////////////////////////////////////////////
-// Declaration
 SDL_Window* g_window;
 SDL_Renderer* g_renderer;
 bool g_flag_running;
 Uint32 g_last_time_ms;
-Uint32 g_frame_time_ms = 3;
 
-bool InitializeWindow(const char* title, int xpos, int ypos, int width, int height, int fullscreen);
-void ClearWindow();
 
 
 int main(int argc, char* argv[])
 {
-	InitializeWindow("Game Programming", 100, 100, 1000, 700, true);
-
-
+	// Initializing SDL library
+	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
 
-	// Open the audio device 
-	int audio_rate = 44100;//MIX_DEFAULT_FREQUENCY;
-	Uint16 audio_format = MIX_DEFAULT_FORMAT;
-	int audio_channels = 2;
-
-	if ( Mix_OpenAudio(audio_rate, audio_format, audio_channels, 4096) < 0 ) 
-	{
-		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
-		Mix_CloseAudio();
-	} 
-	else 
-	{
-		// For debug
-		Mix_QuerySpec(&audio_rate, &audio_format, &audio_channels);
-		printf("Opened audio at %d Hz %d bit %s\n", audio_rate,
-			(audio_format&0xFF),
-			(audio_channels > 2) ? "surround" :
-			(audio_channels > 1) ? "stereo" : "mono");
-
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+		std::cout << "Mix_OpenAudio " << Mix_GetError() << std::endl;
+		exit(1);
 	}
+
+	g_window = SDL_CreateWindow("First Window", 100, 100, 800, 600, 0);
+	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
 
 	InitGame();
 
 	g_last_time_ms = SDL_GetTicks();
 
-	
-
 	while ( g_flag_running )
 	{
 		Uint32 cur_time_ms = SDL_GetTicks();
 
-		if ( cur_time_ms-g_last_time_ms < g_frame_time_ms )
+		if (cur_time_ms - g_last_time_ms < 33)
 			continue;
 
 		HandleEvents();
@@ -68,12 +41,13 @@ int main(int argc, char* argv[])
 		g_last_time_ms = cur_time_ms;
 	}
 
+	SDL_DestroyRenderer(g_renderer);
+	SDL_DestroyWindow(g_window);
+
 	ClearGame();
-	ClearWindow();
-
-
 	Mix_CloseAudio();
 	TTF_Quit();
+	SDL_Quit();
 
 
 	return 0;

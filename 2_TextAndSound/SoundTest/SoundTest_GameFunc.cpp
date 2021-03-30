@@ -1,75 +1,58 @@
 #include "SoundTest_GameFunc.h"
 #include "SDL_image.h"
-#include <iostream>
 #include <windows.h>
-#include "SDL_mixer.h"
-
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
 
 
-Mix_Chunk *wave1_;
-Mix_Music *music1_;
+SDL_Rect g_button_rect_1;
+SDL_Rect g_button_rect_2;
 
-SDL_Rect button_rect_1_;
-SDL_Rect button_rect_2_;
+Mix_Music* g_bg_mus;
+Mix_Chunk* g_gun_sound;
 
-void InitGame()
-{
-		// Buttons
-	button_rect_1_.x = 100;
-	button_rect_1_.y = 100;
-	button_rect_1_.w = 100;
-	button_rect_1_.h = 100;
+void InitGame() {
+	g_flag_running = true;
 
-	button_rect_2_.x = 300;
-	button_rect_2_.y = 100;
-	button_rect_2_.w = 100;
-	button_rect_2_.h = 100;
+	// Buttons
+	g_button_rect_1.x = 100;
+	g_button_rect_1.y = 100;
+	g_button_rect_1.w = 100;
+	g_button_rect_1.h = 100;
 
+	g_button_rect_2.x = 300;
+	g_button_rect_2.y = 100;
+	g_button_rect_2.w = 100;
+	g_button_rect_2.h = 100;
 
-	
-	// Set the music volume 
+	g_bg_mus = Mix_LoadMUS("../../Resources/Kalimba.mp3");
+	if (g_bg_mus == 0) {
+		std::cout << "Mix_LoadMUS(\"Kalimba.mp3\"): " << Mix_GetError() << std::endl;
+	}
+
+	g_gun_sound = Mix_LoadWAV("../../Resources/ray_gun-Mike_Koenig-1169060422.wav");
+
 	Mix_VolumeMusic(128);
-
-	// Load the wave and mp3 files 
-	wave1_ = Mix_LoadWAV("../Resources/ray_gun-Mike_Koenig-1169060422.wav");
-	if ( wave1_ == NULL ) 
-	{
-		printf("Couldn't load the wav: %s\n", Mix_GetError());
-	}
-
-	music1_=Mix_LoadMUS("../Resources/Kalimba.mp3");
-	if(!music1_)
-	{
-		printf(" %s\n", Mix_GetError());
-		// this might be a critical error...
-	}
-
 }
 
 
-void Update()
-{
+void Update() {
 }
 
 
-void Render()
-{
+void Render() {
 	SDL_SetRenderDrawColor(g_renderer, 255,255,255,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
 	// Button 1
 	{
 		SDL_SetRenderDrawColor(g_renderer, 255, 0, 0, 0);
-		SDL_RenderFillRect(g_renderer, &button_rect_1_);
+		SDL_RenderFillRect(g_renderer, &g_button_rect_1);
 	}
 
 
 	// Button 2
 	{
 		SDL_SetRenderDrawColor(g_renderer, 0, 0, 255, 0);
-		SDL_RenderFillRect(g_renderer, &button_rect_2_);
+		SDL_RenderFillRect(g_renderer, &g_button_rect_2);
 	}
 	
 	SDL_RenderPresent(g_renderer); // draw to the screen
@@ -78,8 +61,7 @@ void Render()
 
 
 
-void HandleEvents()
-{
+void HandleEvents() {
 	SDL_Event event;
 	if(SDL_PollEvent(&event))
 	{
@@ -99,22 +81,26 @@ void HandleEvents()
 				int mouse_x = event.button.x;
 				int mouse_y = event.button.y;
 
-				if ( mouse_x > button_rect_1_.x && 
-					mouse_y > button_rect_1_.y && 
-					mouse_x < button_rect_1_.x+button_rect_1_.w &&
-					mouse_y < button_rect_1_.y+button_rect_1_.h  
+				if ( mouse_x > g_button_rect_1.x && 
+					mouse_y > g_button_rect_1.y && 
+					mouse_x < g_button_rect_1.x+g_button_rect_1.w &&
+					mouse_y < g_button_rect_1.y+g_button_rect_1.h  
 					)
 				{
-					Mix_FadeInMusic(music1_, -1, 2000);
+					std::cout << "Button1 was pushed with the left mouse button." << std::endl;
+
+					Mix_FadeInMusic(g_bg_mus, -1, 2000);
 				}
 					
-				if ( mouse_x > button_rect_2_.x && 
-					mouse_y > button_rect_2_.y && 
-					mouse_x < button_rect_2_.x+button_rect_1_.w &&
-					mouse_y < button_rect_2_.y+button_rect_1_.h  
+				else if ( mouse_x > g_button_rect_2.x && 
+					mouse_y > g_button_rect_2.y && 
+					mouse_x < g_button_rect_2.x+g_button_rect_1.w &&
+					mouse_y < g_button_rect_2.y+g_button_rect_1.h  
 					)
 				{
-					Mix_PlayChannel(-1, wave1_, 0);
+					std::cout << "Button2 was pushed with the left mouse button." << std::endl;
+
+					Mix_PlayChannel(-1, g_gun_sound, 0);
 				}
 					
 				
@@ -127,13 +113,14 @@ void HandleEvents()
 				int mouse_x = event.button.x;
 				int mouse_y = event.button.y;
 
-				if ( mouse_x > button_rect_1_.x && 
-					mouse_y > button_rect_1_.y && 
-					mouse_x < button_rect_1_.x+button_rect_1_.w &&
-					mouse_y < button_rect_1_.y+button_rect_1_.h  
+				if ( mouse_x > g_button_rect_1.x && 
+					mouse_y > g_button_rect_1.y && 
+					mouse_x < g_button_rect_1.x+g_button_rect_1.w &&
+					mouse_y < g_button_rect_1.y+g_button_rect_1.h  
 					)
 				{
-					Mix_HaltMusic();
+					std::cout << "Button1 was pushed with the right mouse button." << std::endl;
+					Mix_FadeOutMusic(2000);
 				}
 			}
 			break;
@@ -146,9 +133,8 @@ void HandleEvents()
 
 
 
-void ClearGame()
-{
-	if ( wave1_ ) Mix_FreeChunk(wave1_);
-	if ( music1_ ) Mix_FreeMusic(music1_);
+void ClearGame() {
+	Mix_FreeMusic(g_bg_mus);
+	Mix_FreeChunk(g_gun_sound);
 }
 

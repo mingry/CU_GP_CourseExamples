@@ -1,15 +1,7 @@
 #include "StopwatchGame_GameFunc.h"
 #include "SDL_image.h"
-#include <iostream>
 #include <windows.h>
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
 #include <atlstr.h>
-#include <string>
-
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
 
 Mix_Chunk *wave1_;
 Mix_Music *music1_;
@@ -29,7 +21,9 @@ int result_;
 
 void InitGame()
 {
-	game_font_ = TTF_OpenFont("../Resources/Chlorinp.ttf", 50);
+	g_flag_running = true;
+
+	game_font_ = TTF_OpenFont("../../Resources/Chlorinp.ttf", 50);
 	// 'good'
 	{
 	
@@ -68,13 +62,13 @@ void InitGame()
 	Mix_VolumeMusic(128);
 
 	// Load the wave and mp3 files 
-	wave1_ = Mix_LoadWAV("../Resources/ray_gun-Mike_Koenig-1169060422.wav");
+	wave1_ = Mix_LoadWAV("../../Resources/ray_gun-Mike_Koenig-1169060422.wav");
 	if ( wave1_ == NULL ) 
 	{
 		printf("Couldn't load the wav: %s\n", Mix_GetError());
 	}
 
-	music1_=Mix_LoadMUS("../Resources/Kalimba.mp3");
+	music1_=Mix_LoadMUS("../../Resources/Kalimba.mp3");
 	if(!music1_)
 	{
 		printf(" %s\n", Mix_GetError());
@@ -118,8 +112,7 @@ void UpdateTimeTexture(int ms)
 
 void Update()
 {
-	static Uint32 last_ticks = SDL_GetTicks();
-
+	static Uint32 last_ticks = SDL_GetTicks(); // !중요! static 으로 선언한 이유 확일 할 것.
 	Uint32 current_ticks = SDL_GetTicks();
 	
 	
