@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SDL.h"
-#include "GamePhase.h"
 
 class Intro : public PhaseInterface
 {

@@ -1,13 +1,6 @@
+#include "GameFunc.h"
 #include "GameFuncIntro.h"
-#include "GameFuncPhase.h"
-#include "SDL_image.h"
-#include <iostream>
 
-
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
-extern int g_current_game_phase;
 
 static SDL_Texture* g_texture_intro; // the SDL_Texture 
 static SDL_Rect g_source_rectangle_intro; // the rectangle for source image
@@ -17,7 +10,7 @@ void Init_Intro()
 {
 	// For Texture
 	
-	SDL_Surface* temp_surface = IMG_Load("../Resources/intro.png");
+	SDL_Surface* temp_surface = IMG_Load("../../Resources/intro.png");
 	g_texture_intro = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
@@ -39,7 +32,6 @@ void Render_Intro()
 	SDL_SetRenderDrawColor(g_renderer, 255,255,255,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-    SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 	SDL_RenderCopy(g_renderer, g_texture_intro, &g_source_rectangle_intro, &g_destination_rectangle_intro);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen

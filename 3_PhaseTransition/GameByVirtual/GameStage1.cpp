@@ -1,12 +1,5 @@
+#include "Game.h"
 #include "GameStage1.h"
-#include "GamePhase.h"
-#include "SDL_image.h"
-#include <iostream>
-
-
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
 
 
 Stage1::Stage1()
@@ -20,7 +13,7 @@ Stage1::Stage1()
 
 	// For Texture
 	
-	SDL_Surface* temp_surface = IMG_Load("../Resources/angry_prof.png");
+	SDL_Surface* temp_surface = IMG_Load("../../Resources/angry_prof.png");
 	texture_ = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
@@ -60,7 +53,6 @@ void Stage1::Render()
 	SDL_SetRenderDrawColor(g_renderer, 0,255,255,0);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-    SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 	SDL_RenderCopy(g_renderer, texture_, &source_rectangle_, &destination_rectangle_);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen

@@ -27,6 +27,9 @@
     <ClCompile Include="GameClassStage1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GamcClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameClassEnding.h">
@@ -35,10 +38,10 @@
     <ClInclude Include="GameClassIntro.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameClassPhase.h">
+    <ClInclude Include="GameClassStage1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameClassStage1.h">
+    <ClInclude Include="GameClass.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

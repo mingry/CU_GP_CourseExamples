@@ -27,6 +27,9 @@
     <ClCompile Include="GameFuncStage1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameFuncEnding.h">
@@ -35,10 +38,10 @@
     <ClInclude Include="GameFuncIntro.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameFuncPhase.h">
+    <ClInclude Include="GameFuncStage1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameFuncStage1.h">
+    <ClInclude Include="GameFunc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,5 @@
 #pragma once
 
-#include "SDL.h"
-
-
 void Init_Ending();
 void HandleEvents_Ending();
 void Update_Ending();

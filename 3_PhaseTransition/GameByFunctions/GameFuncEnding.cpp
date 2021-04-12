@@ -1,14 +1,6 @@
 
+#include "GameFunc.h"
 #include "GameFuncEnding.h"
-#include "GameFuncPhase.h"
-#include "SDL_image.h"
-#include <iostream>
-
-
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
-extern int g_current_game_phase;
 
 static SDL_Texture* g_texture_ending; // the SDL_Texture 
 static SDL_Rect g_source_rectangle_ending; // the rectangle for source image
@@ -18,7 +10,7 @@ void Init_Ending()
 {
 	// For Texture
 	
-	SDL_Surface* temp_surface = IMG_Load("../Resources/ending.png");
+	SDL_Surface* temp_surface = IMG_Load("../../Resources/ending.png");
 	g_texture_ending = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
@@ -42,7 +34,6 @@ void Render_Ending()
 	SDL_SetRenderDrawColor(g_renderer, 255,255,0,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-    SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 	SDL_RenderCopy(g_renderer, g_texture_ending, &g_source_rectangle_ending, &g_destination_rectangle_ending);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen

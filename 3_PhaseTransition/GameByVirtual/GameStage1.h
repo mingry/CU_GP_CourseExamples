@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SDL.h"
-#include "GamePhase.h"
 
 class Stage1 : public PhaseInterface
 {

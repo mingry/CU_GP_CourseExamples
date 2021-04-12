@@ -27,6 +27,9 @@
     <ClCompile Include="main_GameByVirtual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEnding.h">
@@ -35,10 +38,10 @@
     <ClInclude Include="GameIntro.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GamePhase.h">
+    <ClInclude Include="GameStage1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStage1.h">
+    <ClInclude Include="Game.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

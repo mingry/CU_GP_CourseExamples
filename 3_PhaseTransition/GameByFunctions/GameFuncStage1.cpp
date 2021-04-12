@@ -1,12 +1,5 @@
+#include "GameFunc.h"
 #include "GameFuncStage1.h"
-#include "GameFuncPhase.h"
-#include "SDL_image.h"
-#include <iostream>
-
-
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
-extern bool g_flag_running;
 
 static SDL_Texture* g_texture_stage1; // the SDL_Texture 
 static SDL_Rect g_source_rectangle_stage1; // the rectangle for source image
@@ -28,7 +21,7 @@ void Init_Stage1()
 
 	// For Texture
 	
-	SDL_Surface* temp_surface = IMG_Load("../Resources/angry_prof.png");
+	SDL_Surface* temp_surface = IMG_Load("../../Resources/angry_prof.png");
 	g_texture_stage1 = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
@@ -64,7 +57,6 @@ void Render_Stage1()
 	SDL_SetRenderDrawColor(g_renderer, 0,255,255,0);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-    SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 	SDL_RenderCopy(g_renderer, g_texture_stage1, &g_source_rectangle_stage1, &g_destination_rectangle_stage1);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen
