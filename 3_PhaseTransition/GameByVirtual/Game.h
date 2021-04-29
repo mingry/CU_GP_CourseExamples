@@ -25,8 +25,6 @@ extern SDL_Window* g_window;
 class PhaseInterface
 {
 public:
-	PhaseInterface() {};
-
 	virtual void HandleEvents() = 0;
 	virtual void Update() = 0;
 	virtual void Render() = 0;

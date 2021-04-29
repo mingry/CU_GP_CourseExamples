@@ -7,9 +7,9 @@ class Ending : public PhaseInterface
 public:
 	Ending();
 	~Ending();
-	virtual void HandleEvents();
-	virtual void Update();
-	virtual void Render();
+	virtual void HandleEvents() override;
+	virtual void Update() override;
+	virtual void Render() override;
 
 private:
 	SDL_Texture* texture_; // the SDL_Texture 
