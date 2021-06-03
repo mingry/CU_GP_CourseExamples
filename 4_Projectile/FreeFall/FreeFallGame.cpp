@@ -101,7 +101,8 @@ FreeFallGame::Render()
 {
 	SDL_SetRenderDrawColor(g_renderer, 255,255,255,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
-		
+	
+	// Ball
 	SDL_Rect dest_rect;
 	dest_rect.w = (int)(2* ball_radius_ * G2W_Scale);
 	dest_rect.h = (int)(2* ball_radius_ * G2W_Scale);
@@ -109,7 +110,8 @@ FreeFallGame::Render()
 	dest_rect.y = G2W_Y(ball_pos_[1]) - (G2W_Scale*ball_radius_);
 	
 	SDL_RenderCopy(g_renderer, ball_texture_, &ball_src_rectangle_, &dest_rect);
-	// Bottom Wall
+
+	// Ground Line
 	SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
 	SDL_RenderDrawLine(g_renderer, G2W_X(-1.5f),
 		G2W_Y(0),

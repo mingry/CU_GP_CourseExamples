@@ -48,9 +48,6 @@ Ball::Update(double timestep_s)
 	a[0] = 0;
 	a[1] = room_->gravitational_acc_y();// Gravity
 
-	// 마찰력 추가..
-
-
 	// Move
 	p_[0] = p_[0] + dt * v_[0];
 	p_[1] = p_[1] + dt * v_[1];
