@@ -7,9 +7,9 @@ class Intro : public PhaseInterface
 public:
 	Intro();
 	~Intro();
-	virtual void HandleEvents() override;
-	virtual void Update() override;
-	virtual void Render() override;
+	virtual void HandleEvents();
+	virtual void Update();
+	virtual void Render();
 
 private:
 	SDL_Texture* texture_; // the SDL_Texture 

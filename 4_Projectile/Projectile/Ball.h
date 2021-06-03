@@ -10,7 +10,7 @@ public:
 	Ball(double radius, Room* room);
 
 	void Reset();
-	virtual void Update(unsigned int elapsed_time_ms);
+	virtual void Update(double timestep_s);
 	void Launch(double initial_force_x, double initial_force_y);
 
 

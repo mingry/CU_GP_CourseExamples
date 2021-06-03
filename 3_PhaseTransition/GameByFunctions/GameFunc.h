@@ -19,3 +19,12 @@ extern int g_current_game_phase;
 extern bool g_flag_running;
 extern SDL_Renderer* g_renderer;
 extern SDL_Window* g_window;
+
+
+class PhaseInterface
+{
+public:
+	virtual void HandleEvents() = 0;
+	virtual void Update() = 0;
+	virtual void Render() = 0;
+};

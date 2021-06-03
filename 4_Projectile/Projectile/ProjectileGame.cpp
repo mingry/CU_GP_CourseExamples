@@ -1,18 +1,26 @@
+#include <iostream>
+
 #include "ProjectileGame.h" 
 #include "SDL_image.h"
-#include <iostream>
 #include "G2W.h"
 #include "math.h"
 
-extern SDL_Window* g_window;
-extern SDL_Renderer* g_renderer;
+extern int g_current_game_phase;
 extern bool g_flag_running;
+extern SDL_Renderer* g_renderer;
+extern SDL_Window* g_window;
+extern float g_timestep_s;
+
+
 
 ProjectileGame::ProjectileGame()
 {
+	g_flag_running = true;
+
+
 	// Texture
 	{
-		SDL_Surface* ball_surface = IMG_Load("../Resources/ball.png");
+		SDL_Surface* ball_surface = IMG_Load("../../Resources/ball.png");
 		ball_src_rectangle_.x = 0;
 		ball_src_rectangle_.y = 0;
 		ball_src_rectangle_.w = ball_surface->w;
@@ -51,6 +59,7 @@ ProjectileGame::~ProjectileGame()
 	}
 
 	num_of_balls_ = 0;
+	SDL_DestroyTexture(ball_texture_);
 }
 
 
@@ -60,7 +69,7 @@ ProjectileGame::AddNewBall()
 	if ( num_of_balls_ == MAX_BALL_NUM ) return;
 
 	// Create new Ball
-	Ball *ball = new Ball(4, &room_);
+	Ball *ball = new Ball(0.11f, &room_);
 
 	// Add to the list
 	balls_[num_of_balls_] = ball;
@@ -74,25 +83,12 @@ ProjectileGame::AddNewBall()
 void
 ProjectileGame::Update()
 {
-	static Uint32 last_ticks = SDL_GetTicks();
 
-	Uint32 current_ticks = SDL_GetTicks();
-	
-	int elapsed_time_ms = current_ticks - last_ticks;
-
-	if ( elapsed_time_ms > 0 )
+	// Update balls
+	for ( int i=0; i<num_of_balls_; i++ )
 	{
-
-		// Update balls
-		for ( int i=0; i<num_of_balls_; i++ )
-		{
-			balls_[i]->Update(elapsed_time_ms);
-		}
-
+		balls_[i]->Update(g_timestep_s);
 	}
-
-
-	last_ticks = current_ticks;
 
 }
 
@@ -108,28 +104,28 @@ ProjectileGame::Render()
 		SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
 
 		// Left Wall
-		SDL_RenderDrawLine(g_renderer, G2W_X(0), 
+		SDL_RenderDrawLine(g_renderer, G2W_X(room_.left_wall_x()),
 										G2W_Y(0), 
-										G2W_X(0), 
+										G2W_X(room_.left_wall_x()),
 										G2W_Y(room_.height()) );
 
 		
 		// Right Wall
-		SDL_RenderDrawLine(g_renderer, G2W_X(room_.width()), 
+		SDL_RenderDrawLine(g_renderer, G2W_X(room_.right_wall_x()),
 										G2W_Y(0), 
-										G2W_X(room_.width()), 
+										G2W_X(room_.right_wall_x()),
 										G2W_Y(room_.height()) );
 
 		// Top Wall
-		SDL_RenderDrawLine(g_renderer, G2W_X(0), 
+		SDL_RenderDrawLine(g_renderer, G2W_X(room_.left_wall_x()),
 										G2W_Y(room_.height()), 
-										G2W_X(room_.width()), 
+										G2W_X(room_.right_wall_x()),
 										G2W_Y(room_.height()) );
 
 		// Bottom Wall
-		SDL_RenderDrawLine(g_renderer, G2W_X(0), 
+		SDL_RenderDrawLine(g_renderer, G2W_X(room_.left_wall_x()),
 										G2W_Y(0), 
-										G2W_X(room_.width()),
+										G2W_X(room_.right_wall_x()),
 										G2W_Y(0) );
 
 		// Fence
@@ -148,7 +144,7 @@ ProjectileGame::Render()
 		int ball_win_x = G2W_X(balls_[i]->pos_x());
 		int ball_win_y = G2W_Y(balls_[i]->pos_y());
 
-		double win_radius = G2W_Scale() * balls_[i]->radius();
+		double win_radius = G2W_Scale * balls_[i]->radius();
 
 		SDL_Rect dest_rect;
 		dest_rect.w = (int)(2*win_radius);

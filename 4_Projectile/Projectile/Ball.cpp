@@ -15,7 +15,7 @@ Ball::Ball(double radius, Room *room)
 	v_[0] = 0;
 	v_[1] = 0;
 
-	mass_ = 10; // 10kg
+	mass_ = 2; // 2kg
 	coeff_of_restitution_ = 0.7;
 
 	Reset();
@@ -24,7 +24,7 @@ Ball::Ball(double radius, Room *room)
 void
 Ball::Reset()
 {
-	p_[0] = radius_;
+	p_[0] = radius_ + room_->left_wall_x();
 	p_[1] = radius_;
 
 	v_[0] = 0;
@@ -39,9 +39,9 @@ Ball::Launch(double initial_force_x, double initial_force_y)
 }
 
 void 
-Ball::Update(unsigned int elapsed_time_ms)
+Ball::Update(double timestep_s)
 {
-	double dt = elapsed_time_ms / 1000.0;	// seconds
+	double dt = timestep_s;	// seconds
 	
 	// 가속도
 	double a[2];
@@ -49,11 +49,6 @@ Ball::Update(unsigned int elapsed_time_ms)
 	a[1] = room_->gravitational_acc_y();// Gravity
 
 	// 마찰력 추가..
-
-	//속도 = 이전속도 + 시간(dt) * 가속도;
-	v_[0] = v_[0] + dt * a[0];
-	v_[1] = v_[1] + dt * a[1];
-
 
 
 	// Move
@@ -95,13 +90,17 @@ Ball::Update(unsigned int elapsed_time_ms)
 	}
 
 	// Collision with Right Wall
-	else if (p_[0] + radius_ > room_->width() && v_[0] > 0)
+	else if (p_[0] + radius_ > room_->right_wall_x() && v_[0] > 0)
 	{
-		p_[0] = room_->width() - radius_;
+		p_[0] = room_->right_wall_x() - radius_;
 
 		v_[0] = -1 * v_[0];
 
 		// Coefficient of restitution
 		v_[0] = coeff_of_restitution_ * v_[0];
 	}
+
+	//속도 = 이전속도 + 시간(dt) * 가속도;
+	v_[0] = v_[0] + dt * a[0];
+	v_[1] = v_[1] + dt * a[1];
 }
