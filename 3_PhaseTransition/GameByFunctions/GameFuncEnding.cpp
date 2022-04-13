@@ -2,44 +2,46 @@
 #include "GameFunc.h"
 #include "GameFuncEnding.h"
 
+static SDL_Texture* g_texture_ending; // the SDL_Texture 
+static SDL_Rect g_source_rectangle_ending; // the rectangle for source image
+static SDL_Rect g_destination_rectangle_ending; // for destination
 
-
-Ending::Ending()
+void Init_Ending()
 {
 	// For Texture
 	
 	SDL_Surface* temp_surface = IMG_Load("../../Resources/ending.png");
-	texture_ending_ = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
+	g_texture_ending = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
-	SDL_QueryTexture(texture_ending_, NULL, NULL, &source_rectangle_ending_.w, &source_rectangle_ending_.h);
-	destination_rectangle_ending_.x = 300;
-	destination_rectangle_ending_.y = 300;
-	source_rectangle_ending_.x = 0;
-	source_rectangle_ending_.y = 0;
-	destination_rectangle_ending_.w = source_rectangle_ending_.w;
-	destination_rectangle_ending_.h = source_rectangle_ending_.h;
+	SDL_QueryTexture(g_texture_ending, NULL, NULL, &g_source_rectangle_ending.w, &g_source_rectangle_ending.h);
+	g_destination_rectangle_ending.x = 300;
+	g_destination_rectangle_ending.y = 300;
+	g_source_rectangle_ending.x = 0;
+	g_source_rectangle_ending.y = 0;
+	g_destination_rectangle_ending.w = g_source_rectangle_ending.w;
+	g_destination_rectangle_ending.h = g_source_rectangle_ending.h;
 
 }
 
-void Ending::Update()
+void Update_Ending()
 {
 }
 
 
-void Ending::Render()
+void Render_Ending()
 {
 	SDL_SetRenderDrawColor(g_renderer, 255,255,0,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-	SDL_RenderCopy(g_renderer, texture_ending_, &source_rectangle_ending_, &destination_rectangle_ending_);
+	SDL_RenderCopy(g_renderer, g_texture_ending, &g_source_rectangle_ending, &g_destination_rectangle_ending);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen
 }
 
 
 
-void Ending::HandleEvents()
+void HandleEvents_Ending()
 {
 	SDL_Event event;
 	if(SDL_PollEvent(&event))
@@ -66,7 +68,7 @@ void Ending::HandleEvents()
 }
 
 
-Ending::~Ending()
+void Clear_Ending()
 {
-	SDL_DestroyTexture(texture_ending_);
+	SDL_DestroyTexture(g_texture_ending);
 }
