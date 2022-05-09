@@ -26,6 +26,7 @@ class PhaseInterface
 {
 public:
 	PhaseInterface() {};
+	virtual ~PhaseInterface() {};
 
 	virtual void HandleEvents() = 0;
 	virtual void Update() = 0;
