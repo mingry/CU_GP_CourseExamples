@@ -213,7 +213,7 @@ ProjectileGame::HandleEvents()
 					double launcing_force_y = 8.0 * guide_line_y;
 
 					// Launch
-					balls_[num_of_balls_-1]->Launch(launcing_force_x, launcing_force_y);
+					ball->Launch(launcing_force_x, launcing_force_y);
 
 
 					// Add a new ball for the next
