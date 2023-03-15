@@ -24,6 +24,9 @@ void InitGame() {
 	g_Y = 10;
 	g_elapsed_time_ms = 0;
 
+	// std::cout 출력에 버퍼를 사용하여, 출력 속도가 느려지는 현상을 피한다.
+	setvbuf(stdout, NULL, _IOLBF, 4096);
+
 	// Clear the console screen.
 	// 표준출력 화면을 깨끗히 지운다.
 	system("cls");
@@ -78,7 +81,7 @@ void Render() {
 	cur.Y = 0;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
 
-	// 1.2. 배경 부분을 '.'으로 채운다.
+	//// 1.2. 배경 부분을 '.'으로 채운다.
 	for ( int i=0; i<20; i++ ) {
 		for ( int j=0; j<30; j++ ) {
 			std::cout << ".";
@@ -86,7 +89,7 @@ void Render() {
 		std::cout << std::endl;
 	}
 
-	// 1.3. 배경 아래에 시간을 표시한다,
+	//// 1.3. 배경 아래에 시간을 표시한다,
 	std::cout << "Elapsed Time: " << g_elapsed_time_ms / 1000.0f << std::endl;
 
 
@@ -95,9 +98,13 @@ void Render() {
 	cur.X = g_X;
 	cur.Y = g_Y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
-
+	
 	// 2.2. 캐릭터 표정을 그린다.
 	std::cout << g_output;
+
+	//// 3. 프레임 완성.
+	// std::cout으로 출력한 내용 중, 아직 화면에 표시되 않고 버퍼에 남아 있는 것이 있다면, 모두 화면에 출력되도록 한다.
+	std::cout.flush();
 }
 
 
