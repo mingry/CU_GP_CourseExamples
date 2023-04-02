@@ -101,7 +101,7 @@ void Render() {
 	// g_ryu_sheet_texture
 	SDL_RenderCopy(g_renderer, g_ryu_sheet_texture, &g_source_rect, &g_destination_rect);
 
-
+		
 	SDL_RenderPresent(g_renderer);
 }
 
