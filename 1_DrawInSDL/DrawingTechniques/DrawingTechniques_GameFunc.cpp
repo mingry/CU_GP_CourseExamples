@@ -146,7 +146,7 @@ void Render() {
 		g_ryu_sheet_texture,
 		&g_oryugen_source_rects[g_current_oryugen_id],
 		&r, 
-		0, 0, SDL_FLIP_HORIZONTAL);	
+		0, 0, SDL_FLIP_HORIZONTAL);
 	// 좌우 반전, 아래 링크 참조
 	// https://wiki.libsdl.org/SDL_RenderCopyEx
 

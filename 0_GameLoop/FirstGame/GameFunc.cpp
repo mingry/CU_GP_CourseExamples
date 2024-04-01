@@ -45,16 +45,16 @@ void InitGame() {
 // main 함수의 while loop에 의해서 무한히 반복 호출된다는 것을 주의.
 void Update() {
 	if (g_input == 1) {
-		g_output = "^__^\n";
+		g_output = "^__^";
 	}
 	else if (g_input == 2) {
-		g_output = "0__0\n";
+		g_output = "0__0";
 	}
 	else if (g_input == 3) {
-		g_output = "T__T\n";
+		g_output = "T__T";
 	}
 	else {
-		g_output = "-__-\n";
+		g_output = "-__-";
 	}
 
 	g_X += 1;
@@ -116,7 +116,9 @@ void Render() {
 void HandleEvents()
 {
 	SDL_Event event;
-	if(SDL_PollEvent(&event)) {
+
+	if( SDL_PollEvent( &event ) ) {
+
 		switch (event.type) {
 
 		case SDL_QUIT:
