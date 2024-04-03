@@ -1,7 +1,7 @@
 #include "TextTest_GameFunc.h"
 #include "SDL_image.h"
-#include <windows.h>
-#include <atlstr.h>
+//#include <windows.h>
+//#include <atlstr.h> // for CW2A fuction
 
 
 SDL_Texture* g_title_en;
@@ -36,7 +36,8 @@ void InitGame() {
 	{
 		TTF_Font* font2 = TTF_OpenFont("../../Resources/arose.ttf", 100);
 		SDL_Color blue = { 0, 0, 255, 0 };
-		SDL_Surface* tmp_surface = TTF_RenderUTF8_Blended(font2, CW2A(L"πÏ ∞‘¿”", CP_UTF8), blue);
+		//SDL_Surface* tmp_surface = TTF_RenderUTF8_Blended(font2, CW2A(L"πÏ ∞‘¿”", CP_UTF8), blue); // ealier than c++ 11
+		SDL_Surface* tmp_surface = TTF_RenderUTF8_Blended(font2, u8"πÏ ∞‘¿”", blue);
 
 		g_title_kr_rect.x = 0;
 		g_title_kr_rect.y = 0;
