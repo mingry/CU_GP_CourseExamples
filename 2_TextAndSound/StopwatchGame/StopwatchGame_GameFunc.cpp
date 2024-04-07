@@ -98,7 +98,8 @@ void UpdateTimeTexture(int ms)
 	}
 
 	SDL_Color black = { 0, 0, 0, 0 };
-	SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, std::to_string((long long)ms).c_str(), black)  ;
+	std::string str = std::to_string(ms);
+	SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, str.c_str(), black)  ;
 	
 	text_time_rect_.x = 0;
 	text_time_rect_.y = 0;
