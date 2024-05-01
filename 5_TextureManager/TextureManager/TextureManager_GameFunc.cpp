@@ -26,10 +26,10 @@ InitGame()
 	TextureManager *tm = TextureManager::GetSingleton();
 
 	// Back-Ground Texture (bg_texture_)
-	tm->LoadTexture("bg", "../Resources/ddd.jpg");
+	tm->LoadTexture("bg", "../../Resources/ddd.jpg");
 
 	// // Ryu Texture
-	tm->LoadTexture("ryu", "../Resources/60224.png", 0, 0, 248);
+	tm->LoadTexture("ryu", "../../Resources/60224.png", 0, 0, 248);
 
 
 

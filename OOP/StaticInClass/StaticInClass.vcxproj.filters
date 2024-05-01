@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main_TextureManagerTest.cpp">
+    <ClCompile Include="main_StaticInClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
+    <ClCompile Include="StaticInClass_GameFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager_GameFunc.cpp">
+    <ClCompile Include="Monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureManager.h">
+    <ClInclude Include="StaticInClass_GameFunc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager_GameFunc.h">
+    <ClInclude Include="Monster.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
