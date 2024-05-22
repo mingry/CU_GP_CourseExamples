@@ -43,7 +43,7 @@ Ball::Update(double timestep_s)
 {
 	double dt = timestep_s;	// seconds
 	
-	// °¡¼Óµµ
+	// ê°€ì†ë„
 	double a[2];
 	a[0] = 0;
 	a[1] = room_->gravitational_acc_y();// Gravity
@@ -97,7 +97,7 @@ Ball::Update(double timestep_s)
 		v_[0] = coeff_of_restitution_ * v_[0];
 	}
 
-	//¼Óµµ = ÀÌÀü¼Óµµ + ½Ã°£(dt) * °¡¼Óµµ;
+	//ì†ë„ = ì´ì „ì†ë„ + ì‹œê°„(dt) * ê°€ì†ë„;
 	v_[0] = v_[0] + dt * a[0];
 	v_[1] = v_[1] + dt * a[1];
 }
