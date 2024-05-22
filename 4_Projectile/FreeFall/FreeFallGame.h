@@ -21,6 +21,8 @@ protected:
 	double ball_pos_[2];
 	double ball_vel_[2];
 	double ball_radius_;
+
+	double simul_time_;
 	
 	// Mouse
 	int mouse_win_x_;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 #include "FreeFallGame.h" 
 #include "SDL_image.h"
@@ -44,6 +45,8 @@ FreeFallGame::FreeFallGame()
 	mouse_win_x_ = 0;
 	mouse_win_y_ = 0;
 
+	simul_time_ = 0.0;
+
 	start_ = false;
 }
 
@@ -65,6 +68,8 @@ FreeFallGame::Update()
 		double g[2];
 		g[0] = 0.0;
 		g[1] = -9.8;
+
+		simul_time_ += g_timestep_s;
 
 		// g_timestep_s 시간이 지난 후 공의 위치 계산
 		ball_pos_[0] = ball_pos_[0] + g_timestep_s * ball_vel_[0];
@@ -88,7 +93,7 @@ FreeFallGame::Update()
 		ball_vel_[0] = ball_vel_[0] + g_timestep_s * g[0];
 		ball_vel_[1] = ball_vel_[1] + g_timestep_s * g[1];
 
-
+		std::cout << " t: " << std::fixed << std::setw(5) << std::setprecision(2) << std::right << simul_time_;
 		std::cout << " v: " << ball_vel_[1];
 		std::cout << " p: " << ball_pos_[1];
 		std::cout << std::endl;
@@ -140,6 +145,7 @@ FreeFallGame::HandleEvents()
 			// If the mouse left button is pressed. 
 			if ( event.button.button == SDL_BUTTON_LEFT )
 			{
+				simul_time_ = 0.0; // reset the simulation time
 				start_ = true;
 				// Get the cursor's x position.
 				/*mouse_win_x_ = event.button.x;
