@@ -3,8 +3,7 @@
 #include "SDL.h"
 #include "Room.h"
 #include "Ball.h"
-
-#define MAX_BALL_NUM 1000
+#include <vector>
 
 class ProjectileGame
 {
@@ -25,9 +24,8 @@ protected:
 
 
 	// Balls
-	int num_of_balls_;
-	Ball *balls_[MAX_BALL_NUM];
-
+	std::vector<Ball> balls_;
+	
 	// Ball Texture
 	SDL_Texture* ball_texture_; 
 	SDL_Rect ball_src_rectangle_;

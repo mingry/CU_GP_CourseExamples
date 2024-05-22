@@ -10,7 +10,7 @@ extern int g_current_game_phase;
 extern bool g_flag_running;
 extern SDL_Renderer* g_renderer;
 extern SDL_Window* g_window;
-extern float g_timestep_s;
+extern double g_timestep_s;
 
 FreeFallGame::FreeFallGame()
 {
@@ -62,9 +62,9 @@ FreeFallGame::Update()
 	if (start_) {
 
 		// 중력 가속도
-		float g[2];
-		g[0] = 0.f;
-		g[1] = -9.8f;
+		double g[2];
+		g[0] = 0.0;
+		g[1] = -9.8;
 
 		// g_timestep_s 시간이 지난 후 공의 위치 계산
 		ball_pos_[0] = ball_pos_[0] + g_timestep_s * ball_vel_[0];
@@ -106,8 +106,8 @@ FreeFallGame::Render()
 	SDL_Rect dest_rect;
 	dest_rect.w = (int)(2* ball_radius_ * G2W_Scale);
 	dest_rect.h = (int)(2* ball_radius_ * G2W_Scale);
-	dest_rect.x = G2W_X(ball_pos_[0]) - (G2W_Scale*ball_radius_);
-	dest_rect.y = G2W_Y(ball_pos_[1]) - (G2W_Scale*ball_radius_);
+	dest_rect.x = (int)(G2W_X(ball_pos_[0]) - (G2W_Scale*ball_radius_));
+	dest_rect.y = (int)(G2W_Y(ball_pos_[1]) - (G2W_Scale*ball_radius_));
 	
 	SDL_RenderCopy(g_renderer, ball_texture_, &ball_src_rectangle_, &dest_rect);
 
@@ -150,7 +150,14 @@ FreeFallGame::HandleEvents()
 				double mouse_game_y = W2G_Y(mouse_win_y_);*/
 				
 			}
-
+			else if (event.button.button == SDL_BUTTON_RIGHT)
+			{
+				start_ = false;
+				ball_pos_[0] = 0.f;
+				ball_pos_[1] = 2.f;
+				ball_vel_[0] = 0.f;
+				ball_vel_[1] = 0.f;
+			}
 		
 
 		case SDL_MOUSEMOTION:

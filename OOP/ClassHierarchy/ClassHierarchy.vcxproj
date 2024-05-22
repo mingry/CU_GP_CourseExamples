@@ -20,12 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassHierarchy_GameFunc.h" />
-    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Creature.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassHierarchy_GameFunc.cpp" />
     <ClCompile Include="main_ClassHierarchy.cpp" />
-    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Creature.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{962CB13B-448C-4D05-9325-A26F006EEE8B}</ProjectGuid>

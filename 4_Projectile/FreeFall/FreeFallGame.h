@@ -18,9 +18,9 @@ protected:
 	SDL_Rect ball_src_rectangle_;
 
 	bool start_; 
-	float ball_pos_[2];
-	float ball_vel_[2];
-	float ball_radius_;
+	double ball_pos_[2];
+	double ball_vel_[2];
+	double ball_radius_;
 	
 	// Mouse
 	int mouse_win_x_;

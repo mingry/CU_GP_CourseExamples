@@ -18,7 +18,7 @@
     <ClInclude Include="ClassHierarchy_GameFunc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="Creature.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -26,7 +26,7 @@
     <ClCompile Include="main_ClassHierarchy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
+    <ClCompile Include="Creature.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClassHierarchy_GameFunc.cpp">
