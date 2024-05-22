@@ -31,15 +31,15 @@ FreeFallGame::FreeFallGame()
 	}
 
 	// 공의 반지름
-	ball_radius_ = 0.11f;
+	ball_radius_ = 0.11;
 
 	// 최초 공의 위치
-	ball_pos_[0] = 0.f;
-	ball_pos_[1] = 2.f;
+	ball_pos_[0] = 0.0;
+	ball_pos_[1] = 6.0;
 	
 	// 최초 공의 속도
-	ball_vel_[0] = 0.f;
-	ball_vel_[1] = 0.f;
+	ball_vel_[0] = 0.0;
+	ball_vel_[1] = 0.0;
 
 
 	mouse_win_x_ = 0;
@@ -76,7 +76,7 @@ FreeFallGame::Update()
 		ball_pos_[1] = ball_pos_[1] + g_timestep_s * ball_vel_[1];
 
 		// 공이 떨어지는 중이라면, 바닥과 충돌하였는지 검사
-		if (ball_vel_[1] < 0.f && ball_pos_[1] - ball_radius_ <= 0.f )
+		if (ball_vel_[1] < 0.f && ball_pos_[1] - ball_radius_ <= 0.0 )
 		{
 
 			// 위치 변경.
@@ -86,7 +86,7 @@ FreeFallGame::Update()
 
 			// 충돌 반응 계산
 			// 바닥은 수평하므로 수직 방향에 대해서만 속도의 방향을 변화 시킨다.
-			ball_vel_[1] = -1 * ball_vel_[1] * 0.7f; // 탄성 계수 0.7
+			ball_vel_[1] = -1 * ball_vel_[1] * 0.7; // 탄성 계수 0.7
 		}
 
 		// g_timestep_s 시간이 지난 후 공의 속도 계산
