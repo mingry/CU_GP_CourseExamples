@@ -1,4 +1,4 @@
-#include "GameFunc.h"
+﻿#include "GameFunc.h"
 #include <windows.h>
 
 int g_input;
