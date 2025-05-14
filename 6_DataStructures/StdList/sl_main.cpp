@@ -44,14 +44,14 @@ int main()
 
 	std::cout << "size of L : " << L.size() << std::endl;
 
-	
+
 
 	// wrong update
 	std::cout << std::endl;
 	std::cout << "wrong way to update" << std::endl;
 	for (auto v : L)
 	{
-		v.x *= 10;
+		v.x = v.x * 10;
 	}
 
 	for (auto v : L)
@@ -59,10 +59,11 @@ int main()
 		std::cout << v.x << ", " << v.y << std::endl;
 	}
 
+
 	// correct update
 	std::cout << std::endl;
 	std::cout << "correct way to update" << std::endl;
-	for (auto& v : L)
+	for (auto &v : L)
 	{
 		v.x *= 10;
 	}

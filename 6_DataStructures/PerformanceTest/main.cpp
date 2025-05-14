@@ -4,7 +4,7 @@
 #include <chrono>
 
 int main() {
-    const int n = 200000; //
+    const int n = 300000; //
 
     ///////////// Vector test ////////////////
     std::cout << "*** Vector Test ***" << std::endl;
@@ -23,6 +23,8 @@ int main() {
     std::cout << std::endl;
 
     // insert front
+    vec.clear();
+    vec.resize(0);
     std::cout << "Insert " << n << " elements at front ... " << std::endl;
     start_vec = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < n; ++i) {
@@ -73,6 +75,8 @@ int main() {
     std::cout << std::endl;
 
     // insert front
+    lst.clear();
+    lst.resize(0);
     std::cout << "Insert " << n << " elements at front ... " << std::endl;
     start_lst = std::chrono::high_resolution_clock::now();
    

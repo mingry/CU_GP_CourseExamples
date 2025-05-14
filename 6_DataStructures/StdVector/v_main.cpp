@@ -35,6 +35,11 @@ int main()
 		std::cout << i << ": " << vec[i] << std::endl;
 	}
 
+	for (auto v : vec)
+	{
+		std::cout << v << std::endl;
+	}
+
 	std::cout << "add one more data" << std::endl;
 	vec.push_back(6 * 30);
 
