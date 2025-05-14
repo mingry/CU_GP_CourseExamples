@@ -25,10 +25,16 @@ public:
 	
 	void Attacked() {
 		health -= 10;
+		if (health <= 0) {
+			health = 0;
+		}
 	}
 
 	void Heal() {
 		health += 10;
+		if (health >= 100) {
+			health = 100;
+		}
 	}
 
 private:
@@ -39,7 +45,7 @@ private:
 
 };
 
-void HealAllMonsters(std::vector<Monster> &ms) {
+void HealAllMonsters(std::vector<Monster>& ms) {
 	for (auto& m : ms) {
 		m.Heal();
 	}

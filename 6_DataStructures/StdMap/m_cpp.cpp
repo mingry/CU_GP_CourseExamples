@@ -45,11 +45,11 @@ int main()
 	std::cout << positions["jane"].x << " " << positions["jane"].y << std::endl;
 	std::cout << positions["choi"].x << " " << positions["choi"].y << std::endl;*/
 
-	for (auto iter = positions.begin(); iter != positions.end(); iter++)
+	for (auto v : positions)
 	{
-		std::cout << iter->first << ": " << iter->second.x << " " << iter->second.y << std::endl;
-
+		std::cout << v.first << ": " << v.second.x << " " << v.second.y << std::endl;
 	}
+	
 
 	return 0;
 }

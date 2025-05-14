@@ -37,12 +37,41 @@ int main()
 	std::cout << "back of L : " << L.back().x << ", " << L.back().y << std::endl;
 
 
-	for (auto iter = L.begin(); iter != L.end(); iter++)
+	for (auto v : L)
 	{
-		std::cout << iter->x << ", "  << iter->y << std::endl;
+		std::cout << v.x << ", " << v.y << std::endl;
 	}
 
 	std::cout << "size of L : " << L.size() << std::endl;
+
+	
+
+	// wrong update
+	std::cout << std::endl;
+	std::cout << "wrong way to update" << std::endl;
+	for (auto v : L)
+	{
+		v.x *= 10;
+	}
+
+	for (auto v : L)
+	{
+		std::cout << v.x << ", " << v.y << std::endl;
+	}
+
+	// correct update
+	std::cout << std::endl;
+	std::cout << "correct way to update" << std::endl;
+	for (auto& v : L)
+	{
+		v.x *= 10;
+	}
+
+	for (auto v : L)
+	{
+		std::cout << v.x << ", " << v.y << std::endl;
+	}
+
 
 
 	return 0;

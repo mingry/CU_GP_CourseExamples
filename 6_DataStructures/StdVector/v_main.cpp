@@ -23,40 +23,40 @@ public:
 
 int main()
 {
-	std::vector<int> v(5);
+	std::vector<int> vec(5);
 
-	for (int i = 0; i < v.size(); i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
-		v[i] = i * 30;
+		vec[i] = i * 30;
 	}
 
-	for (int i = 0; i < v.size(); i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
-		std::cout << i << ": " << v[i] << std::endl;
+		std::cout << i << ": " << vec[i] << std::endl;
 	}
 
 	std::cout << "add one more data" << std::endl;
-	v.push_back(6 * 30);
+	vec.push_back(6 * 30);
 
-	for (int i = 0; i < v.size(); i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
-		std::cout << i << ": " << v[i] << std::endl;
+		std::cout << i << ": " << vec[i] << std::endl;
 	}
 
 
 	std::cout << "remove one data" << std::endl;
-	v.pop_back();
+	vec.pop_back();
 
-	for (int i = 0; i < v.size(); i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
-		std::cout << i << ": " << v[i] << std::endl;
+		std::cout << i << ": " << vec[i] << std::endl;
 	}
 
 	std::cout << "resize" << std::endl;
-	v.resize(2);
-	for (int i = 0; i < v.size(); i++)
+	vec.resize(2);
+	for (int i = 0; i < vec.size(); i++)
 	{
-		std::cout << i << ": " << v[i] << std::endl;
+		std::cout << i << ": " << vec[i] << std::endl;
 	}
 
 

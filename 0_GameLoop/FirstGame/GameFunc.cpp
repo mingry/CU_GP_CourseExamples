@@ -62,7 +62,7 @@ void Update() {
 		g_X = 0;
 	}
 
-	g_elapsed_time_ms += 33;
+	g_elapsed_time_ms += 30;
 }
 
 
@@ -164,5 +164,6 @@ void HandleEvents()
 // 이 함수에서 사용된 자원(이미지, 사운드 등)과 메모리 등을 해제해야한다.
 void ClearGame()
 {
+
 }
 
