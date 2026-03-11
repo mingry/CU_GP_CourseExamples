@@ -112,47 +112,40 @@ void Render() {
 /////////////////////////////////////////////////////////////
 // HandleEvents() 
 // 이벤트를 처리하는 함수.
-// main 함수의 while loop에 의해서 무한히 반복 호출된다는 것을 주의.
-void HandleEvents()
-{
-	SDL_Event event;
-
-	if( SDL_PollEvent( &event ) ) {
-
-		switch (event.type) {
-
-		case SDL_QUIT:
-			g_flag_running = false;
-			break;
-
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_LEFT) {
-				g_input = 1;
-			}
-			else if (event.key.keysym.sym == SDLK_RIGHT) {
-				g_input = 2;
-			}
-			else if (event.key.keysym.sym == SDLK_SPACE) {
-				g_input = 3;
-			}
-			break;
-
-		case SDL_KEYUP:
+// main 함수의 while loop에 의해서 무한히 반복 호출되는다는 것을 주의.
+void HandleEvents() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_EVENT_QUIT:
+            g_flag_running = false;
+            break;
+        case SDL_EVENT_KEY_DOWN:
+			std::cout << event.key.key << std::endl;
+            if (event.key.key == SDLK_ESCAPE) {
+				g_flag_running = false;
+            }
+            else if (event.key.key == SDLK_1) {
+                g_input = 1;
+            }
+            else if (event.key.key == SDLK_2) {
+                g_input = 2;
+            }
+            break;
+        case SDL_EVENT_KEY_UP:
+            g_input = 0;
+            break;
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            g_input = 3;
+            break;
+		case SDL_EVENT_MOUSE_BUTTON_UP:
 			g_input = 0;
 			break;
 
-		case SDL_MOUSEBUTTONDOWN:
-		
-			// 마우스 왼쪽 버튼이 눌려 졌을 때.
-			if ( event.button.button == SDL_BUTTON_LEFT ) {
-				g_input = 3;
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
+        default:
+            break;
+        }
+    }
 }
 
 
