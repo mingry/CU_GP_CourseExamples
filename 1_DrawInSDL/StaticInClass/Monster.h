@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "SDL.h"
+#include "SDL3/SDL.h"
 
 class Monster {
 public:
@@ -19,13 +19,13 @@ public:
 	static void ClearSpriteSheet();
 
 private:
-	int pos_x;
-	int pos_y;
+	float pos_x;
+	float pos_y;
 	int health;
 	std::string name;
 	int cur_sprite_id;
 
-	static std::vector<SDL_Rect> sprite_rects;
+	static std::vector<SDL_FRect> sprite_rects;
 	static SDL_Texture* sheet_texture;
 
 };
