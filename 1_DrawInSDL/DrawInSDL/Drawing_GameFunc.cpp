@@ -1,14 +1,14 @@
 #include "Drawing_GameFunc.h"
 #include <windows.h>
-#include "SDL_image.h"
+#include "SDL3_image/SDL_image.h"
 
 int g_input;
 int g_elapsed_time_ms;
 
-SDL_Rect g_char_pos;
+SDL_FRect g_char_pos;
 SDL_Texture* g_ryu_sheet_texture;
-SDL_Rect g_source_rect;
-SDL_Rect g_destination_rect;
+SDL_FRect g_source_rect;
+SDL_FRect g_destination_rect;
 
 
 void InitGame() {
@@ -24,7 +24,7 @@ void InitGame() {
 
 	SDL_Surface* ryu_sheet_surface = IMG_Load("../../Resources/60224.png");
 	g_ryu_sheet_texture = SDL_CreateTextureFromSurface(g_renderer, ryu_sheet_surface);
-	SDL_FreeSurface(ryu_sheet_surface);
+	SDL_DestroySurface(ryu_sheet_surface);
 
 	g_source_rect.x = 171;
 	g_source_rect.y = 1647;
@@ -42,21 +42,21 @@ void HandleEvents() {
 	SDL_Event event;
 
 	if (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
+		if (event.type == SDL_EVENT_QUIT) {
 			g_flag_running = false;
 		}
-		else if (event.type == SDL_KEYDOWN) {
-			if (event.key.keysym.sym == SDLK_LEFT) {
+		else if (event.type == SDL_EVENT_KEY_DOWN) {
+			if (event.key.key == SDLK_LEFT) {
 				g_input = 1;
 			}
-			else if (event.key.keysym.sym == SDLK_RIGHT) {
+			else if (event.key.key == SDLK_RIGHT) {
 				g_input = 2;
 			}
-			else if (event.key.keysym.sym == SDLK_SPACE) {
+			else if (event.key.key == SDLK_SPACE) {
 				g_input = 3;
 			}
 		}
-		else if (event.type == SDL_KEYUP) {
+		else if (event.type == SDL_EVENT_KEY_UP) {
 			g_input = 0;
 		}
 	}
@@ -99,7 +99,7 @@ void Render() {
 	SDL_RenderFillRect(g_renderer, &g_char_pos);
 
 	// g_ryu_sheet_texture
-	SDL_RenderCopy(g_renderer, g_ryu_sheet_texture, &g_source_rect, &g_destination_rect);
+	SDL_RenderTexture(g_renderer, g_ryu_sheet_texture, &g_source_rect, &g_destination_rect);
 
 		
 	SDL_RenderPresent(g_renderer);

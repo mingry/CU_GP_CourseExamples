@@ -8,9 +8,9 @@ Uint32 g_last_time_ms;
 int main(int argc, char* argv[]) {
 
 	// Initializing SDL library
-	SDL_Init(SDL_INIT_EVERYTHING);
-	g_window = SDL_CreateWindow("First Window", 100, 100, 800, 600, 0);
-	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
+	g_window = SDL_CreateWindow("First Window", 800, 600, SDL_WINDOW_RESIZABLE);
+	g_renderer = SDL_CreateRenderer(g_window, NULL);
 
 	InitGame();
 
