@@ -1,19 +1,19 @@
 #include "StopwatchGame_GameFunc.h"
-#include "SDL_image.h"
-#include <windows.h>
-#include <atlstr.h>
 
-Mix_Chunk *wave1_;
-Mix_Music *music1_;
+MIX_Audio *wave1_;
+MIX_Audio *music1_;
+MIX_Track *wave1_track_;
+MIX_Track *music1_track_;
+
 
 TTF_Font *game_font_;
 SDL_Texture *text_good_;
 SDL_Texture *text_bad_;
 SDL_Texture *text_time_;
-SDL_Rect text_good_rect_;
-SDL_Rect text_bad_rect_;
-SDL_Rect text_time_rect_;
-SDL_Rect text_time_out_rect_;
+SDL_FRect text_good_rect_;
+SDL_FRect text_bad_rect_;
+SDL_FRect text_time_rect_;
+SDL_FRect text_time_out_rect_;
 
 int time_ms_;
 bool started_;
@@ -27,54 +27,58 @@ void InitGame()
 	// 'good'
 	{
 	
-		SDL_Color green = { 0, 255, 0, 0 };
-		SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, "Good", green);
+		SDL_Color green = { 0, 255, 0, 255 };
+		SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, "Good", 0, green);
 	
 		text_good_rect_.x = 0;
 		text_good_rect_.y = 0;
-		text_good_rect_.w = tmp_surface->w;
-		text_good_rect_.h = tmp_surface->h;
+		text_good_rect_.w = (float)tmp_surface->w;
+		text_good_rect_.h = (float)tmp_surface->h;
 
 		text_good_ = SDL_CreateTextureFromSurface(g_renderer, tmp_surface);
 		
-		SDL_FreeSurface(tmp_surface);
+		SDL_DestroySurface(tmp_surface);
 	}
 
 	// 'bad'
 	{
 	
-		SDL_Color red = { 255, 0, 0, 0 };
-		SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, "Bad", red);
+		SDL_Color red = { 255, 0, 0, 255 };
+		SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, "Bad", 0, red);
 	
 		text_bad_rect_.x = 0;
 		text_bad_rect_.y = 0;
-		text_bad_rect_.w = tmp_surface->w;
-		text_bad_rect_.h = tmp_surface->h;
+		text_bad_rect_.w = (float)tmp_surface->w;
+		text_bad_rect_.h = (float)tmp_surface->h;
 
 		text_bad_ = SDL_CreateTextureFromSurface(g_renderer, tmp_surface);
 		
-		SDL_FreeSurface(tmp_surface);
+		SDL_DestroySurface(tmp_surface);
 	}
 	
 
 
-	// Set the music volume 
-	Mix_VolumeMusic(128);
-
 	// Load the wave and mp3 files 
-	wave1_ = Mix_LoadWAV("../../Resources/ray_gun-Mike_Koenig-1169060422.wav");
+	wave1_ = MIX_LoadAudio(g_mixer, "../../Resources/ray_gun-Mike_Koenig-1169060422.wav", false);
 	if ( wave1_ == NULL ) 
 	{
-		printf("Couldn't load the wav: %s\n", Mix_GetError());
+		std::cout << "Couldn't load the wav: " << SDL_GetError() << std::endl;
 	}
 
-	music1_=Mix_LoadMUS("../../Resources/Kalimba.mp3");
+	music1_ = MIX_LoadAudio(g_mixer, "../../Resources/Kalimba.mp3", false);
 	if(!music1_)
 	{
-		printf(" %s\n", Mix_GetError());
-		// this might be a critical error...
+		std::cout << "Couldn't load the mp3: " << SDL_GetError() << std::endl;
 	}
-	Mix_PlayMusic(music1_, -1);
+
+	wave1_track_ = MIX_CreateTrack(g_mixer);
+	music1_track_ = MIX_CreateTrack(g_mixer);
+
+	MIX_SetTrackAudio(wave1_track_, wave1_);
+	MIX_SetTrackAudio(music1_track_, music1_);
+
+	MIX_PlayTrack(music1_track_, 0);
+	MIX_SetTrackLoops(music1_track_, -1);	// 음악이 계속 반복해서 나오도록 한다.
 
 	started_ = false;
 	time_ms_ = 0;
@@ -97,29 +101,29 @@ void UpdateTimeTexture(int ms)
 		text_time_ = 0;
 	}
 
-	SDL_Color black = { 0, 0, 0, 0 };
+	SDL_Color black = { 0, 0, 0, 255 };
 	std::string str = std::to_string(ms);
-	SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, str.c_str(), black)  ;
+	SDL_Surface *tmp_surface = TTF_RenderText_Blended(game_font_, str.c_str(), 0, black);
 	
 	text_time_rect_.x = 0;
 	text_time_rect_.y = 0;
-	text_time_rect_.w = tmp_surface->w;
-	text_time_rect_.h = tmp_surface->h;
+	text_time_rect_.w = (float)tmp_surface->w;
+	text_time_rect_.h = (float)tmp_surface->h;
 
 	text_time_ = SDL_CreateTextureFromSurface(g_renderer, tmp_surface);
 	
-	SDL_FreeSurface(tmp_surface);
+	SDL_DestroySurface(tmp_surface);
 }
 
 void Update()
 {
-	static Uint32 last_ticks = SDL_GetTicks(); // !중요! static 으로 선언한 이유 확일 할 것.
-	Uint32 current_ticks = SDL_GetTicks();
+	static Uint64 last_ticks = SDL_GetTicks(); // !중요! static 으로 선언한 이유 확일 할 것.
+	Uint64 current_ticks = SDL_GetTicks();
 	
 	
 	if ( started_ )
 	{
-		time_ms_ += current_ticks - last_ticks;
+		time_ms_ += (int)(current_ticks - last_ticks);
 		UpdateTimeTexture(time_ms_);	// 업데이트 된 시간(time_ms_)을 문자로 변환한 후 texture로 만든다.
 	}
 
@@ -137,31 +141,31 @@ void Render()
 
 	if ( result_ == 1 )
 	{
-		SDL_Rect r;
-		r.x = win_w/2 - text_good_rect_.w/2;
+		SDL_FRect r;
+		r.x = (float)win_w/2 - text_good_rect_.w/2;
 		r.y = 100;
 		r.w = text_good_rect_.w;
 		r.h = text_good_rect_.h;
-		SDL_RenderCopy(g_renderer, text_good_, 0, &r);
+		SDL_RenderTexture(g_renderer, text_good_, 0, &r);
 	}
 	else if ( result_ == -1 )
 	{
-		SDL_Rect r;
-		r.x = win_w/2 - text_bad_rect_.w/2;
+		SDL_FRect r;
+		r.x = (float)win_w/2 - text_bad_rect_.w/2;
 		r.y = 100;
 		r.w = text_bad_rect_.w;
 		r.h = text_bad_rect_.h;
-		SDL_RenderCopy(g_renderer, text_bad_, 0, &r);
+		SDL_RenderTexture(g_renderer, text_bad_, 0, &r);
 	}
 
 	{
 		
-		SDL_Rect r;
-		r.x = win_w/2 - text_time_rect_.w/2;
+		SDL_FRect r;
+		r.x = (float)win_w/2 - text_time_rect_.w/2;
 		r.y = 200;
 		r.w = text_time_rect_.w;
 		r.h = text_time_rect_.h;
-		SDL_RenderCopy(g_renderer, text_time_, 0, &r);
+		SDL_RenderTexture(g_renderer, text_time_, 0, &r);
 	}
 	
 	
@@ -178,18 +182,18 @@ void HandleEvents()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
+		case SDL_EVENT_QUIT:
 			g_flag_running = false;
 			break;
 
-		case SDL_KEYDOWN:
-			if ( event.key.keysym.sym == SDLK_ESCAPE )	// ESC 키가 눌러졌을 때 프로그램이 끝나게 한다.
+		case SDL_EVENT_KEY_DOWN:
+			if ( event.key.key == SDLK_ESCAPE )	// ESC 키가 눌러졌을 때 프로그램이 끝나게 한다.
 				g_flag_running = false;
 
 			break;
 
 
-		case SDL_MOUSEBUTTONDOWN:
+		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			
 
 			// If the mouse left button is pressed. 
@@ -200,7 +204,7 @@ void HandleEvents()
 					started_ = false;
 					if ( 950 <= time_ms_ && time_ms_ <= 1050 )
 					{
-						Mix_PlayChannel(-1, wave1_, 0);
+						MIX_PlayTrack(wave1_track_, 0);
 						result_ = 1;
 					}
 					else
@@ -230,8 +234,10 @@ void HandleEvents()
 
 void ClearGame()
 {
-	if ( wave1_ ) Mix_FreeChunk(wave1_);
-	if ( music1_ ) Mix_FreeMusic(music1_);
+	if (wave1_track_) MIX_DestroyTrack(wave1_track_);
+	if (music1_track_) MIX_DestroyTrack(music1_track_);
+	if ( wave1_ ) MIX_DestroyAudio(wave1_);
+	if ( music1_ ) MIX_DestroyAudio(music1_);
 	TTF_CloseFont(game_font_);
 }
 

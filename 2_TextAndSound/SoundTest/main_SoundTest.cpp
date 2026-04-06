@@ -4,22 +4,25 @@
 SDL_Window* g_window;
 SDL_Renderer* g_renderer;
 bool g_flag_running;
-Uint32 g_last_time_ms;
+Uint64 g_last_time_ms;
+MIX_Mixer* g_mixer;
 
 int main(int argc, char* argv[]) {
 
 	// Initializing SDL library
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
 
-	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
-		std::cout << "Mix_OpenAudio " << Mix_GetError() << std::endl;
-		exit(1);
+	if (MIX_Init()) {
+		SDL_Log("SDL_mixer is ready!");
 	}
-	// Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
-	// Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
+	else {
+		SDL_Log("MIX_Init failed: %s", SDL_GetError());
+	}
 
-	g_window = SDL_CreateWindow("First Window", 100, 100, 800, 600, 0);
-	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
+	g_mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, NULL);
+	
+	g_window = SDL_CreateWindow("Sound", 800, 600, 0);
+	g_renderer = SDL_CreateRenderer(g_window, NULL);
 
 	InitGame();
 
@@ -27,7 +30,7 @@ int main(int argc, char* argv[]) {
 
 	while (g_flag_running) {
 
-		Uint32 cur_time_ms = SDL_GetTicks();
+		Uint64 cur_time_ms = SDL_GetTicks();
 
 		if (cur_time_ms - g_last_time_ms < 33)
 			continue;
@@ -43,8 +46,12 @@ int main(int argc, char* argv[]) {
 	SDL_DestroyWindow(g_window);
 
 	ClearGame();
-	Mix_CloseAudio();
+	MIX_DestroyMixer(g_mixer);
+	MIX_Quit();
 	SDL_Quit();
+	SDL_DestroyRenderer(g_renderer);
+	SDL_DestroyWindow(g_window);
+
 
 
 	return 0;
