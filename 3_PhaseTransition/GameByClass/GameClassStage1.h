@@ -1,6 +1,7 @@
 #pragma once
 
-#include "SDL.h"
+#include "SDL3/SDL.h"
+
 
 class Stage1
 {
@@ -14,8 +15,8 @@ public:
 
 private:
 	SDL_Texture* texture_; // the SDL_Texture 
-	SDL_Rect source_rectangle_; // the rectangle for source image
-	SDL_Rect destination_rectangle_; // for destination
+	SDL_FRect source_rectangle_; // the rectangle for source image
+	SDL_FRect destination_rectangle_; // for destination
 
 	bool character_go_left_;
 	bool character_go_right_;

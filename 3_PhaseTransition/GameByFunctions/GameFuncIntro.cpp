@@ -3,8 +3,8 @@
 
 
 static SDL_Texture* g_texture_intro; // the SDL_Texture 
-static SDL_Rect g_source_rectangle_intro; // the rectangle for source image
-static SDL_Rect g_destination_rectangle_intro; // for destination
+static SDL_FRect g_source_rectangle_intro; // the rectangle for source image
+static SDL_FRect g_destination_rectangle_intro; // for destination
 
 void Init_Intro()
 {
@@ -12,9 +12,9 @@ void Init_Intro()
 	
 	SDL_Surface* temp_surface = IMG_Load("../../Resources/intro.png");
 	g_texture_intro = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
-	SDL_FreeSurface(temp_surface);
+	SDL_DestroySurface(temp_surface);
 
-	SDL_QueryTexture(g_texture_intro, NULL, NULL, &g_source_rectangle_intro.w, &g_source_rectangle_intro.h);
+	SDL_GetTextureSize(g_texture_intro, &g_source_rectangle_intro.w, &g_source_rectangle_intro.h);
 	g_destination_rectangle_intro.x = g_source_rectangle_intro.x = 0;
 	g_destination_rectangle_intro.y = g_source_rectangle_intro.y = 0;
 	g_destination_rectangle_intro.w = g_source_rectangle_intro.w;
@@ -32,7 +32,7 @@ void Render_Intro()
 	SDL_SetRenderDrawColor(g_renderer, 255,255,255,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-	SDL_RenderCopy(g_renderer, g_texture_intro, &g_source_rectangle_intro, &g_destination_rectangle_intro);
+	SDL_RenderTexture(g_renderer, g_texture_intro, &g_source_rectangle_intro, &g_destination_rectangle_intro);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen
 }
@@ -46,11 +46,11 @@ void HandleEvents_Intro()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
+		case SDL_EVENT_QUIT:
 			g_flag_running = false;
 			break;
 
-		case SDL_MOUSEBUTTONDOWN:
+		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 		
 			// If the mouse left button is pressed. 
 			if ( event.button.button == SDL_BUTTON_LEFT )

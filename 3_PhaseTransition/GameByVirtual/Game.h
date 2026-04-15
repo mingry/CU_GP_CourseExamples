@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include "SDL.h"
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
-#include "SDL_image.h"
+#include "SDL3/SDL.h"
+#include "SDL3_ttf/SDL_ttf.h"
+#include "SDL3_mixer/SDL_mixer.h"
+#include "SDL3_image/SDL_image.h"
+
 
 // Game Phases
 const int PHASE_INTRO = 0;

@@ -8,9 +8,9 @@ Ending::Ending()
 	
 	SDL_Surface* temp_surface = IMG_Load("../../Resources/ending.png");
 	texture_ = SDL_CreateTextureFromSurface(g_renderer, temp_surface);
-	SDL_FreeSurface(temp_surface);
+	SDL_DestroySurface(temp_surface);
 
-	SDL_QueryTexture(texture_, NULL, NULL, &source_rectangle_.w, &source_rectangle_.h);
+	SDL_GetTextureSize(texture_, &source_rectangle_.w, &source_rectangle_.h);
 	destination_rectangle_.x = 300;
 	destination_rectangle_.y = 300;
 	source_rectangle_.x = 0;
@@ -35,7 +35,7 @@ void Ending::Render()
 	SDL_SetRenderDrawColor(g_renderer, 255,255,0,255);
 	SDL_RenderClear(g_renderer); // clear the renderer to the draw color
 
-	SDL_RenderCopy(g_renderer, texture_, &source_rectangle_, &destination_rectangle_);
+	SDL_RenderTexture(g_renderer, texture_, &source_rectangle_, &destination_rectangle_);
 
 	SDL_RenderPresent(g_renderer); // draw to the screen
 }
@@ -49,11 +49,11 @@ void Ending::HandleEvents()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
+		case SDL_EVENT_QUIT:
 			g_flag_running = false;
 			break;
 
-		case SDL_MOUSEBUTTONDOWN:
+		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 		
 			// If the mouse left button is pressed. 
 			if ( event.button.button == SDL_BUTTON_LEFT )
