@@ -1,19 +1,19 @@
 
 #include "Monster.h"
-#include "SDL_image.h"
+#include "SDL3_image/SDL_image.h"
 #include "StaticInClass_GameFunc.h"
 
 
 
 SDL_Texture* Monster::sheet_texture = 0;
-std::vector<SDL_Rect> Monster::sprite_rects;
+std::vector<SDL_FRect> Monster::sprite_rects;
 
 void Monster::LoadSpriteSheet()
 {
 
 	SDL_Surface* surface = IMG_Load("../../Resources/monster.png");
 	sheet_texture = SDL_CreateTextureFromSurface(g_renderer, surface);
-	SDL_FreeSurface(surface);
+	SDL_DestroySurface(surface);
 
 
 	sprite_rects.push_back({ 0  , 0, 380, 420 });
@@ -41,16 +41,16 @@ void Monster::ClearSpriteSheet()
 
 
 Monster::Monster() {
-	pos_x = rand() % 900 + 100;
-	pos_y = rand() % 400 + 100;
+	pos_x = float(rand() % 900 + 100);
+	pos_y = float(rand() % 400 + 100);
 	health = 100;
 	name = "noname";
 	cur_sprite_id = rand() % sprite_rects.size();
 }
 
 Monster::Monster(std::string name) {
-	pos_x = rand() % 900 + 100;
-	pos_y = rand() % 400 + 100;
+	pos_x = float(rand() % 900 + 100);
+	pos_y = float(rand() % 400 + 100);
 	health = 100;
 	this->name = name;
 	cur_sprite_id = rand() % sprite_rects.size();
@@ -72,19 +72,19 @@ void Monster::Update()
 
 void Monster::Render() {
 
-	SDL_Rect r = { pos_x, pos_y,
-		sprite_rects[cur_sprite_id].w*0.2,
-		sprite_rects[cur_sprite_id].h*0.2};
-	SDL_RenderCopy(g_renderer, sheet_texture, &sprite_rects[cur_sprite_id], &r);
+	SDL_FRect r = { pos_x, pos_y,
+		sprite_rects[cur_sprite_id].w*0.2f,
+		sprite_rects[cur_sprite_id].h*0.2f};
+	SDL_RenderTexture(g_renderer, sheet_texture, &sprite_rects[cur_sprite_id], &r);
 
 	// hp bar
 	SDL_SetRenderDrawColor(g_renderer, 255, 0, 0, 255);
-	SDL_Rect hp_bar = { pos_x, pos_y - 10, health, 10 };
+	SDL_FRect hp_bar = { pos_x, pos_y - 10.0f, (float)health, 10.0f };
 	SDL_RenderFillRect(g_renderer, &hp_bar);
 
-	SDL_Rect hp_bar_box = { pos_x, pos_y - 10, 100, 10 };
+	SDL_FRect hp_bar_box = { pos_x, pos_y - 10, 100, 10 };
 	SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(g_renderer, &hp_bar_box);
+	SDL_RenderRect(g_renderer, &hp_bar_box);
 
 
 }

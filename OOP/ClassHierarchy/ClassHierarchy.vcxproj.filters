@@ -32,5 +32,8 @@
     <ClCompile Include="ClassHierarchy_GameFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\StaticInClass\Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

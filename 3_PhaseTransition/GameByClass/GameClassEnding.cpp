@@ -1,4 +1,4 @@
-#include "GameClass.h"
+﻿#include "GameClass.h"
 #include "GameClassEnding.h"
 
 

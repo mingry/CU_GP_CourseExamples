@@ -13,13 +13,13 @@ Uint32 g_last_time_ms;
 int g_current_game_phase;
 
 // 초단위 timestep (1/60초). Frame time과 시뮬레이션의 timestep으로 사용된다.
-double g_timestep_s = 1.0f / 60.0;
+float g_timestep_s = 1.0f / 60.0f;
 
 int main(int argc, char* argv[])
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-	g_window = SDL_CreateWindow("Projectile", 100, 100, 1000, 700, 0);
-	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
+	g_window = SDL_CreateWindow("Projectile", 1000, 700, 0);
+	g_renderer = SDL_CreateRenderer(g_window, NULL);
 
 	FreeFallGame game;	
 
@@ -43,8 +43,6 @@ int main(int argc, char* argv[])
 	SDL_DestroyWindow(g_window);
 
 	SDL_Quit();
-
-	return 0;
 
 	return 0;
 }

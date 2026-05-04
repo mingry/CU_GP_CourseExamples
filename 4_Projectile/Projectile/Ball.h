@@ -1,38 +1,38 @@
-#pragma once
+﻿#pragma once
 
-#include "SDL.h"
+#include "SDL3/SDL.h"
 #include "Room.h"
 
 
 class Ball
 {
 public:
-	Ball(double radius, Room* room);
+	Ball(float radius, Room* room);
 
 	void Reset();
-	virtual void Update(double timestep_s);
-	void Launch(double initial_force_x, double initial_force_y);
+	virtual void Update(float timestep_s);
+	void Launch(float initial_force_x, float initial_force_y);
 
 
-	void velocity(double x, double y) { v_[0] = x; v_[1] = y; }
-	double radius() const { return radius_; }
-	double mass() const { return mass_; }
-	double coeff_of_restitution() { return coeff_of_restitution_; }
+	void velocity(float x, float y) { v_[0] = x; v_[1] = y; }
+	float radius() const { return radius_; }
+	float mass() const { return mass_; }
+	float coeff_of_restitution() { return coeff_of_restitution_; }
 
-	double pos_x() const { return p_[0]; }
-	double pos_y() const { return p_[1]; }
+	float pos_x() const { return p_[0]; }
+	float pos_y() const { return p_[1]; }
 
 protected:
 	Room* room_;
 	
-	double radius_;	// meter
-	double mass_;	// kg
-	double coeff_of_restitution_; // from 0 o 1
+	float radius_;	// meter
+	float mass_;	// kg
+	float coeff_of_restitution_; // from 0 o 1
 
 	// position
-	double p_[2];	// x, y
+	float p_[2];	// x, y
 
 	// velocity
-	double v_[2];	// x, y
+	float v_[2];	// x, y
 };
 

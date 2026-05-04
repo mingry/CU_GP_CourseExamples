@@ -20,8 +20,8 @@ private:
 
 	bool character_go_left_;
 	bool character_go_right_;
-	double character_x_;
-	double character_y_;
+	float character_x_;
+	float character_y_;
 };
 
 

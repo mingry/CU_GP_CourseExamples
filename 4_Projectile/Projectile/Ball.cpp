@@ -1,22 +1,19 @@
-
-#include "Ball.h"
-#include "SDL_image.h"
+﻿#include "Ball.h"
+#include "SDL3_image/SDL_image.h"
 #include <iostream>
 
 
-
-
-Ball::Ball(double radius, Room *room)
+Ball::Ball(float radius, Room *room)
 {
 	room_ = room;
 	radius_ = radius;
 
 	
-	v_[0] = 0;
-	v_[1] = 0;
+	v_[0] = 0.0f;
+	v_[1] = 0.0f;
 
-	mass_ = 2; // 2kg
-	coeff_of_restitution_ = 0.7;
+	mass_ = 2.0f; // 2kg
+	coeff_of_restitution_ = 0.7f;
 
 	Reset();
 }
@@ -32,19 +29,19 @@ Ball::Reset()
 }
 
 void
-Ball::Launch(double initial_force_x, double initial_force_y)
+Ball::Launch(float initial_force_x, float initial_force_y)
 {
 	v_[0] = v_[0] + (initial_force_x/mass_);
 	v_[1] = v_[1] + (initial_force_y/mass_);
 }
 
 void 
-Ball::Update(double timestep_s)
+Ball::Update(float timestep_s)
 {
-	double dt = timestep_s;	// seconds
+	float dt = timestep_s;	// seconds
 	
 	// 가속도
-	double a[2];
+	float a[2];
 	a[0] = 0;
 	a[1] = room_->gravitational_acc_y();// Gravity
 

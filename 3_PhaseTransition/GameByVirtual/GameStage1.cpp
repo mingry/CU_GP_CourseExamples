@@ -20,8 +20,8 @@ Stage1::Stage1()
 	SDL_GetTextureSize(texture_, &source_rectangle_.w, &source_rectangle_.h);
 	source_rectangle_.x = 0;
 	source_rectangle_.y = 0;
-	destination_rectangle_.x = (int)character_x_; 
-	destination_rectangle_.y = (int)character_y_; 
+	destination_rectangle_.x = character_x_; 
+	destination_rectangle_.y = character_y_; 
 	destination_rectangle_.w = source_rectangle_.w;
 	destination_rectangle_.h = source_rectangle_.h;
 }
@@ -36,13 +36,13 @@ void Stage1::Update()
 	if ( character_go_left_ )
 	{
 		character_x_ -= 10.;
-		destination_rectangle_.x = (int)character_x_;
+		destination_rectangle_.x = character_x_;
 	}
 
 	if ( character_go_right_ )
 	{
 		character_x_ += 10.;
-		destination_rectangle_.x = (int)character_x_;
+		destination_rectangle_.x = character_x_;
 	}
 
 }

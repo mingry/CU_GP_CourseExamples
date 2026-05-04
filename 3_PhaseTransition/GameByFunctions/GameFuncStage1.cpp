@@ -7,16 +7,16 @@ static SDL_FRect g_destination_rectangle_stage1; // for destination
 
 static bool g_character_go_left;
 static bool g_character_go_right;
-static double g_character_x;
-static double g_character_y;
+static float g_character_x;
+static float g_character_y;
 
 void Init_Stage1()
 {
 	// For Character
 	g_character_go_left = false;
 	g_character_go_right = false;
-	g_character_x = 300;
-	g_character_y = 300;
+	g_character_x = 300.0f;
+	g_character_y = 300.0f;
 
 
 	// For Texture
@@ -28,8 +28,8 @@ void Init_Stage1()
 	SDL_GetTextureSize(g_texture_stage1, &g_source_rectangle_stage1.w, &g_source_rectangle_stage1.h);
 	g_source_rectangle_stage1.x = 0;
 	g_source_rectangle_stage1.y = 0;
-	g_destination_rectangle_stage1.x = (int)g_character_x; 
-	g_destination_rectangle_stage1.y = (int)g_character_y; 
+	g_destination_rectangle_stage1.x = g_character_x; 
+	g_destination_rectangle_stage1.y = g_character_y; 
 	g_destination_rectangle_stage1.w = g_source_rectangle_stage1.w;
 	g_destination_rectangle_stage1.h = g_source_rectangle_stage1.h;
 
@@ -41,13 +41,13 @@ void Update_Stage1()
 	if ( g_character_go_left )
 	{
 		g_character_x -= 10.;
-		g_destination_rectangle_stage1.x = (int)g_character_x;
+		g_destination_rectangle_stage1.x = g_character_x;
 	}
 
 	if ( g_character_go_right )
 	{
 		g_character_x += 10.;
-		g_destination_rectangle_stage1.x = (int)g_character_x;
+		g_destination_rectangle_stage1.x = g_character_x;
 	}
 }
 

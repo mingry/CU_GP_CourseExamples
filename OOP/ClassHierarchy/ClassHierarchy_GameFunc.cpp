@@ -1,6 +1,6 @@
 #include "ClassHierarchy_GameFunc.h"
 #include <windows.h>
-#include "SDL_image.h"
+#include "SDL3_image/SDL_image.h"
 #include "Monster.h"
 std::vector<Monster> g_monsters;
 
@@ -32,15 +32,15 @@ void HandleEvents() {
 	SDL_Event event;
 
 	if (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
+		if (event.type == SDL_EVENT_QUIT) {
 			g_flag_running = false;
 		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN) {
+		else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				AttackAllMonsters();
 			}
 			if (event.button.button == SDL_BUTTON_RIGHT) {
-				HealAllMonsters();	
+				HealAllMonsters();
 			}
 		}
 	}

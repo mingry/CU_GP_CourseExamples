@@ -10,9 +10,9 @@ Uint32 g_frame_per_sec = 30;
 int main(int argc, char* argv[]) {
 
 	// Initializing SDL library
-	SDL_Init(SDL_INIT_EVERYTHING);
-	g_window = SDL_CreateWindow("First Window", 100, 100, 1280, 720, 0);
-	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
+	g_window = SDL_CreateWindow("First Window", 1280, 720, SDL_WINDOW_RESIZABLE);
+	g_renderer = SDL_CreateRenderer(g_window, NULL);
 
 	InitGame();
 
